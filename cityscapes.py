@@ -43,7 +43,7 @@ class CityScapes(Dataset):
       label = []
       categories = ["images/", "gtFine/"]
       for c in categories:
-       if os.path.exists(self.path+t):
+       if os.path.exists(self.path+c):
                 # get files from directory
                 for root, dirs, files in os.walk(self.path+c):
                     if self.mode in root:
