@@ -45,13 +45,13 @@ class CityScapes(Dataset):
       for c in categories:
        if os.path.exists(self.path+t):
                 # get files from directory
-                for root, dirs, files in os.walk(self.path+t):
+                for root, dirs, files in os.walk(self.path+c):
                     if self.mode in root:
                         for file in files:
                             file_path = os.path.join(root, file)
                             # get path in mode
                             relative_path = os.path.relpath(file_path, self.path)
-                            if t=="images/":
+                            if c=="images/":
                                 data.append(relative_path)
                             else:
                                 if file_path.split("gtFine_")[1] == "labelTrainIds.png":
