@@ -13,7 +13,7 @@ class CityScapes(Dataset):
       super(CityScapes, self).__init__()
       self.path = "/content/Cityscapes/Cityspaces"    #To find the dataset
       self.mode = mode                                #Train or val
-      self.data, self.label = self.data_loader()      #To extract both label and image
+      self.data, self.label = self.data_loader()      #To save both label and image
       self.transformed_data = T.Compose([
           T.ToTensor(),
           T.Normalize([0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
