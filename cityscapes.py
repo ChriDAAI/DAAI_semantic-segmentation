@@ -39,7 +39,8 @@ class CityScapes(Dataset):
             return img.convert(mode).resize((self.width, self.height), Image.NEAREST)
 
     def data_loader(self):
-      data, label = []
+      data = []
+      label = []
       categories = ["images/", "gtFine/"]
       for c in categories:
        if os.path.exists(self.path+t):
