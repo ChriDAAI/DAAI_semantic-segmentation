@@ -29,8 +29,7 @@ class CityScapes(Dataset):
 
      tensor_image = self.transformed_data(image)
      tensor_label =torch.from_numpy(np.array(label))
-        
-    return tensor_image, tensor_label
+        return tensor_image, tensor_label
 
     def __len__(self):
        return len(self.data)
