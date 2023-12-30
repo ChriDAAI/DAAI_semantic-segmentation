@@ -23,12 +23,12 @@ class CityScapes(Dataset):
       self.height = args.crop_height
 
     def __getitem__(self, idx):
+        image = self.pil_loader(self.data[idx],  'RGB')
+        label = self.pil_loader(self.label[idx],  'L')
 
-     image = self.pil_loader(self.data[idx],  'RGB')
-     label = self.pil_loader(self.label[idx],  'L')
-
-     tensor_image = self.transformed_data(image)
-     tensor_label =torch.from_numpy(np.array(label))
+        tensor_image = self.transform_data(image)
+        tensor_label =torch.from_numpy(np.array(label))
+ 
         return tensor_image, tensor_label
 
     def __len__(self):
