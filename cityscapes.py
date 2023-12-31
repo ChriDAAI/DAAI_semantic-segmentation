@@ -76,7 +76,7 @@ class CityScapes(Dataset):
         label = Image.open(lbpth)
         if self.mode == 'train':
             im_lb = dict(im = img, lb = label)
-            im_lb = self.trans_train(im_lb)
+            #im_lb = self.trans_train(im_lb)
             img, label = im_lb['im'], im_lb['lb']
         img = self.transformed_data(img)
         label = np.array(label).astype(np.int64)[np.newaxis, :]
