@@ -12,9 +12,6 @@ from PIL import Image
 import numpy as np
 import json
 
-from transform import *
-
-
 
 class CityScapes(Dataset):
     def __init__(self, path, mode='train'):
