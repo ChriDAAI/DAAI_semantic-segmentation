@@ -53,8 +53,8 @@ class CityScapes(Dataset):
         for fd in folders:
             fdpth = osp.join(gtpth, fd)
             lbnames = os.listdir(fdpth)
-            lbnames = [el for el in lbnames if 'labelIds' in el]
-            names = [el.replace('_gtFine_labelIds.png', '') for el in lbnames]
+            lbnames = [el for el in lbnames if 'labelTrainIds' in el]
+            names = [el.replace('_gtFine_labelTrainIds.png', '') for el in lbnames]
             lbpths = [osp.join(fdpth, el) for el in lbnames]
             gtnames.extend(names)
             self.labels.update(dict(zip(names, lbpths)))
