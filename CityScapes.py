@@ -13,7 +13,7 @@ import numpy as np
 import json
 
 class CityScapes(Dataset):
-  def __init__(self, path, mode='train', args):
+  def __init__(self, path, mode='train'):
     super(CityScapes,self).__init__()
     self.path = "/content/Cityscapes/Cityspaces"    #To find the dataset
     assert mode in ('train', 'val')
@@ -25,10 +25,7 @@ class CityScapes(Dataset):
           T.ToTensor(),
           T.Normalize([0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
           ])
-
-    self.width=args.crop_width
-    self.height = args.crop_height
-
+    
     with open('./cityscapes_info.json', 'r') as fr:
             labels_info = json.load(fr)
         self.lb_map = {el['id']: el['trainId'] for el in labels_info}
