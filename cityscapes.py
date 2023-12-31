@@ -74,7 +74,7 @@ class CityScapes(Dataset):
         lbpth = self.labels[fn]
         img = Image.open(impth).convert('RGB')
         label = Image.open(lbpth)
-        if self.mode == 'train' or self.mode == 'trainval':
+        if self.mode == 'train':
             im_lb = dict(im = img, lb = label)
             im_lb = self.trans_train(im_lb)
             img, label = im_lb['im'], im_lb['lb']
