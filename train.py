@@ -216,6 +216,7 @@ def main():
     n_classes = args.num_classes
 
     mode = args.mode
+    path = args.path
 
     train_dataset = CityScapes(path, mode=mode)
 
