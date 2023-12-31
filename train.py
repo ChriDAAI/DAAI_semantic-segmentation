@@ -217,7 +217,7 @@ def main():
 
     mode = args.mode
 
-    train_dataset = CityScapes(mode=mode, args)
+    train_dataset = CityScapes(mode=mode)
 
     
     dataloader_train = DataLoader(train_dataset,
@@ -227,7 +227,7 @@ def main():
                     pin_memory=False,
                     drop_last=True)
 
-    val_dataset = CityScapes(mode='val', args=args)
+    val_dataset = CityScapes(mode='val')
     dataloader_val = DataLoader(val_dataset,
                        batch_size=1,
                        shuffle=False,
