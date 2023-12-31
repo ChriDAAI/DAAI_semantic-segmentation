@@ -217,7 +217,7 @@ def main():
 
     mode = args.mode
 
-    train_dataset = CityScapes(mode, args)
+    train_dataset = CityScapes(mode='train', args)
 
     
     dataloader_train = DataLoader(train_dataset,
