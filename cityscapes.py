@@ -4,7 +4,7 @@
 
 import torch
 from torch.utils.data import Dataset
-import torchvision.transforms as transforms
+import torchvision.transforms as T
 
 import os.path as osp
 import os
