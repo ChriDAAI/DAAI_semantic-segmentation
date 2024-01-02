@@ -29,19 +29,19 @@ class CityScapes(Dataset):
           T.Normalize([0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
           ])
         
-         self.trans_train = Compose([
-            ColorJitter(
-                brightness = 0.5,
-                contrast = 0.5,
-                saturation = 0.5),
-            HorizontalFlip(),
-            # RandomScale((0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0)),
-            RandomScale(randomscale),
-            # RandomScale((0.125, 1)),
-            # RandomScale((0.125, 0.25, 0.375, 0.5, 0.675, 0.75, 0.875, 1.0)),
-            # RandomScale((0.125, 0.25, 0.375, 0.5, 0.675, 0.75, 0.875, 1.0, 1.125, 1.25, 1.375, 1.5)),
-            RandomCrop(cropsize)
-            ])
+        self.trans_train = Compose([
+           ColorJitter(
+               brightness = 0.5,
+               contrast = 0.5,
+               saturation = 0.5),
+           HorizontalFlip(),
+           # RandomScale((0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0)),
+           RandomScale(randomscale),
+           # RandomScale((0.125, 1)),
+           # RandomScale((0.125, 0.25, 0.375, 0.5, 0.675, 0.75, 0.875, 1.0)),
+           # RandomScale((0.125, 0.25, 0.375, 0.5, 0.675, 0.75, 0.875, 1.0, 1.125, 1.25, 1.375, 1.5)),
+           RandomCrop(cropsize)
+           ])
 
         with open('/content/DAAI_semantic-segmentation/cityscapes_info.json', 'r') as fr:
             labels_info = json.load(fr)
