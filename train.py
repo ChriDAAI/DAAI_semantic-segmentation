@@ -18,6 +18,18 @@ logger = logging.getLogger()
 
 
 def val(args, model, dataloader):
+    with open('/content/DAAI_semantic-segmentation/cityscapes_info.json', 'r') as fr:
+        labels_info = json.load(fr)
+        # Initialize an empty list to store the names
+        classes = []
+
+        # Iterate over the items in the JSON file
+        for item in data:
+            # Check if 'ignoreInEval' is False
+            if not item['ignoreInEval']:
+                # If so, append the 'name' to the list
+                classes.append(item['name'])
+    
     print('start val!')
     with torch.no_grad():
         model.eval()
@@ -52,8 +64,9 @@ def val(args, model, dataloader):
         miou = np.mean(miou_list)
         print('precision per pixel for test: %.3f' % precision)
         print('mIoU for validation: %.3f' % miou)
-        print(f'mIoU per class: {miou_list}')
-
+        for i in range(len(classes)):
+            print(f'mIoU per class %s: %.3f' (classes[i], miou_list[i])
+                 
         return precision, miou
 
 
