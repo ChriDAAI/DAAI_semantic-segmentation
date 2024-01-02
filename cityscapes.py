@@ -12,7 +12,7 @@ from PIL import Image
 import numpy as np
 import json
 
-from transforms import *
+from transformation import *
 
 class CityScapes(Dataset):
     def __init__(self, path, mode='train', cropsize=(640, 480), 
