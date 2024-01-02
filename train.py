@@ -211,7 +211,7 @@ def parse_args():
                        type=str,
                        default='crossentropy',
                        help='loss function')
-    parser.add_argument("--figure_name", 
+    parse.add_argument("--figure_name", 
                          type=str, 
                          default="mIoU vs Epoch", 
                          help="Name of image with mIoU plot")
