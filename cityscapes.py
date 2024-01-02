@@ -12,10 +12,12 @@ from PIL import Image
 import numpy as np
 import json
 
+from transform import *
 
 class CityScapes(Dataset):
-    def __init__(self, path, mode='train'):
-        super(CityScapes, self).__init__()
+    def __init__(self, path, mode='train', cropsize=(640, 480), mode='train', 
+    randomscale=(0.125, 0.25, 0.375, 0.5, 0.675, 0.75, 0.875, 1.0, 1.25, 1.5), *args, **kwargs):
+        super(CityScapes, self).__init__(*args, **kwargs)
         self.path =  "/content/Cityscapes/Cityspaces"    #To find the dataset
         assert mode in ('train', 'val')
         self.mode = mode
@@ -26,6 +28,20 @@ class CityScapes(Dataset):
           T.ToTensor(),
           T.Normalize([0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
           ])
+        
+         self.trans_train = Compose([
+            ColorJitter(
+                brightness = 0.5,
+                contrast = 0.5,
+                saturation = 0.5),
+            HorizontalFlip(),
+            # RandomScale((0.25, 0.5, 0.75, 1.0, 1.25, 1.5, 1.75, 2.0)),
+            RandomScale(randomscale),
+            # RandomScale((0.125, 1)),
+            # RandomScale((0.125, 0.25, 0.375, 0.5, 0.675, 0.75, 0.875, 1.0)),
+            # RandomScale((0.125, 0.25, 0.375, 0.5, 0.675, 0.75, 0.875, 1.0, 1.125, 1.25, 1.375, 1.5)),
+            RandomCrop(cropsize)
+            ])
 
         with open('/content/DAAI_semantic-segmentation/cityscapes_info.json', 'r') as fr:
             labels_info = json.load(fr)
@@ -76,7 +92,7 @@ class CityScapes(Dataset):
         label = Image.open(lbpth)
         if self.mode == 'train':
             im_lb = dict(im = img, lb = label)
-            #im_lb = self.trans_train(im_lb)
+            im_lb = self.trans_train(im_lb)
             img, label = im_lb['im'], im_lb['lb']
         img = self.transformed_data(img)
         label = np.array(label).astype(np.int64)[np.newaxis, :]
