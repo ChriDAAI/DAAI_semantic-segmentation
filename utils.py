@@ -9,7 +9,7 @@ import numbers
 import torchvision
 
 
-def poly_lr_scheduler(optimizer, init_lr, iter, lr_decay_iter=1,
+def poly_lr_scheduler(optimizer, init_lr, iter, lr_decay_iter=2,
                       max_iter=300, power=0.9):
 	"""Polynomial decay of learning rate
 		:param init_lr is base learning rate
