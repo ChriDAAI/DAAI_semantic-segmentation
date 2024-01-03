@@ -76,7 +76,7 @@ def train(args, model, optimizer, dataloader_train, dataloader_val):
 
     scaler = amp.GradScaler()
 
-    miou_lisy = []
+    miou_list = []
 
     loss_func = torch.nn.CrossEntropyLoss(ignore_index=255)
     max_miou = 0
