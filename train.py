@@ -66,7 +66,7 @@ def val(args, model, dataloader):
         print('precision per pixel for test: %.3f' % precision)
         print('mIoU for validation: %.3f' % miou)
         for i in range(len(classes)):
-            print(f'mIoU per class %s: %.3f' (classes[i], miou_list[i]))
+            print(f'mIoU per class {classes[i]}: {miou_list[i]:.3f}')
                  
         return precision, miou
 
