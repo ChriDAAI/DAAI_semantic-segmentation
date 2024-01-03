@@ -12,6 +12,7 @@ import torch.cuda.amp as amp
 from utils import poly_lr_scheduler
 from utils import reverse_one_hot, compute_global_accuracy, fast_hist, per_class_iu
 from tqdm import tqdm
+import matplotlib.pyplot as plt
 
 
 logger = logging.getLogger()
