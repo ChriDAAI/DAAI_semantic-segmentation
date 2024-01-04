@@ -7,7 +7,14 @@ import pandas as pd
 import random
 import numbers
 import torchvision
+from sklearn.model_selection import train_test_split
 
+def split_dataset(toSplit):
+    inds = range(0, len(toSplit))
+    splitting = train_test_split(inds, train_size = 0.5, random_state = 42, stratify = None, shuffle = True)
+    train_indexes = splitting[0]
+    val_indexes = splitting[1]
+    return Subset(toSplit,train_indexes),Subset(toSplit,val_indexes)
 
 def poly_lr_scheduler(optimizer, init_lr, iter, lr_decay_iter=2,
                       max_iter=300, power=0.9):
