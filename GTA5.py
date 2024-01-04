@@ -15,6 +15,7 @@ class GTA5Dataset(Dataset):
         self.images_dir = os.path.join(path, 'images')
         self.labels_dir = os.path.join(path, 'labels')
         self.image_files = os.listdir(self.images_dir)
+        self.data, self.label_colored = self.data_loader()
         self.width = 1024
         self.height = 512
         self.transform_data = transforms.Compose([ 
@@ -37,5 +38,23 @@ class GTA5Dataset(Dataset):
         tensor_image = self.transform_data(image)
         tensor_label = torch.from_numpy(np.array(label))  
         return tensor_image, tensor_label 
-        
-        
+
+
+     def data_loader(self):
+            data= []
+            label = []
+            types = [ "labels/","images/"]
+            
+            for t in types:
+                for root, dirs, files in os.walk(self.path+t):
+                    for file in files:
+                        file_path = os.path.join(root, file)
+                        relative_path = os.path.relpath(file_path, self.path)
+                        if t=="images/":
+                            data.append(relative_path)
+                        else:
+                            label.append(relative_path)
+                        if len(data)==len(label):
+                            break
+            return sorted(data), sorted(label)
+            
