@@ -128,10 +128,10 @@ def train(args, model, optimizer, dataloader_train, dataloader_val):
                 torch.save(model.module.state_dict(), os.path.join(args.save_model_path, 'best.pth'))
             writer.add_scalar('epoch/precision_val', precision, epoch)
             writer.add_scalar('epoch/miou val', miou, epoch)
-    #plt.plot(range(args.num_epochs), miou_list)
-    #plt.xlabel("Epoch #")
-    #plt.ylabel("mIoU")
-    #plt.savefig(os.path.join("/content/drive/MyDrive/figures",args.figure_name))
+            plt.plot(range(args.num_epochs), miou_list)
+            plt.xlabel("Epoch #")
+            plt.ylabel("mIoU")
+            plt.savefig(os.path.join("/content/drive/MyDrive/figures",args.figure_name))
 
 def str2bool(v):
     if v.lower() in ('yes', 'true', 't', 'y', '1'):
