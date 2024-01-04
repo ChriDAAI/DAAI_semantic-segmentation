@@ -31,6 +31,6 @@ class GTA5Dataset(Dataset):
         label_name = os.path.join(self.labels_dir, self.image_files[idx])
         image = Image.open(img_name).convert('RGB')
         label_colored = Image.open(label_name)
-        label = self.one_hot_it(label_colored,self.label_info)  # Convert label to TrainID format
+        label = one_hot_it(label_colored,self.label_info)  # Convert label to TrainID format
         
         return sorted(image), sorted(label)
