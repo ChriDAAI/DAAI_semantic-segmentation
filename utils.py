@@ -8,6 +8,8 @@ import random
 import numbers
 import torchvision
 from sklearn.model_selection import train_test_split
+from torch.utils.data import Subset
+
 
 def split_dataset(toSplit):
     inds = range(0, len(toSplit))
