@@ -10,10 +10,11 @@ import numpy as np
 from tensorboardX import SummaryWriter
 import torch.cuda.amp as amp
 from utils import poly_lr_scheduler
-from utils import reverse_one_hot, compute_global_accuracy, fast_hist, per_class_iu
+from utils import reverse_one_hot, compute_global_accuracy, fast_hist, per_class_iu, split_dataset
 from tqdm import tqdm
 import matplotlib.pyplot as plt
 import json
+from GTA5 import GTA5
 
 logger = logging.getLogger()
 
@@ -229,6 +230,9 @@ def parse_args():
                          type=str, 
                          default="mIoU vs Epoch", 
                          help="Name of image with mIoU plot")
+    parse.add_argument('--dataset_train',
+                      type=str,
+                      default='Cityscapes')
 
 
     return parse.parse_args()
@@ -242,8 +246,20 @@ def main():
 
     mode = args.mode
     path_cityscapes = "/content/Cityscapes/Cityspaces"
+    path_GTA5 = "/content/GTA5"
+
+    if args.dataset_train=='Cityscapes':
+        print("Training on Cityscape Dataset")
+        train_dataset = CityScapes(path_cityscapes, mode=mode)
+        val_dataset = CityScapes(path_cityscapes, mode='val')
+    elif args.dataset_train=='GTA5':
+        print("Traning on GTA5 Dataset")
+        dateset=GTA5(path_GTA5, mode)
+        train_dataset,val_dataset=split_dataset(datset)
+        
+        
+        
     
-    train_dataset = CityScapes(path_cityscapes, mode=mode)
 
     
     dataloader_train = DataLoader(train_dataset,
@@ -253,7 +269,7 @@ def main():
                     pin_memory=False,
                     drop_last=True)
 
-    val_dataset = CityScapes(path_cityscapes, mode='val')
+    
     dataloader_val = DataLoader(val_dataset,
                        batch_size=1,
                        shuffle=False,
