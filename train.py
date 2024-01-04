@@ -15,7 +15,6 @@ from tqdm import tqdm
 import matplotlib.pyplot as plt
 import json
 from GTA5 import GTA5Dataset
-from torch.utils.data import Subset
 
 logger = logging.getLogger()
 
