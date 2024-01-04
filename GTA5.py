@@ -22,6 +22,7 @@ class GTA5Dataset(Dataset):
             transforms.ToTensor(),                 
             transforms.Normalize(mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225))
         ])
+        label = one_hot_it(label_colored,self.label_info)  # Convert label to TrainID format
 
     def __len__(self):
         return len(self.image_files)
@@ -30,7 +31,11 @@ class GTA5Dataset(Dataset):
         img_name = os.path.join(self.images_dir, self.image_files[idx])
         label_name = os.path.join(self.labels_dir, self.image_files[idx])
         image = Image.open(img_name).convert('RGB')
-        label_colored = Image.open(label_name)
-        label = one_hot_it(label_colored,self.label_info)  # Convert label to TrainID format
+        label_colored = Image.open(label_name).convert('L')
         
-        return sorted(image), sorted(label)
+        
+        tensor_image = self.transform_data(image)
+        tensor_label = torch.from_numpy(np.array(label))  
+        return tensor_image, tensor_label 
+        
+        
