@@ -39,11 +39,11 @@ def get_label_info(csv_path):
 	ann = pd.read_csv(csv_path)
 	label = {}
 	for iter, row in ann.iterrows():
-		label_name = row['name']
-		r = row['r']
-		g = row['g']
-		b = row['b']
-		class_11 = row['class_11']
+		label_name = row['Name']
+		r = row['R']
+		g = row['G']
+		b = row['B']
+		class_11 = row['ID']
 		label[label_name] = [int(r), int(g), int(b), class_11]
 	return label
 
