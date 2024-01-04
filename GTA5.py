@@ -11,7 +11,7 @@ class GTA5Dataset(Dataset):
     def __init__(self, path, csv_file, mode = 'train'):
         self.path = "/content/GTA5"
         self.mode = mode
-        self.label_info = self.get_label_info('/content/DAAI_semantic-segmentation/GTA5.csv')
+        self.label_info = get_label_info('/content/DAAI_semantic-segmentation/GTA5.csv')
         self.images_dir = os.path.join(path, 'images')
         self.labels_dir = os.path.join(path, 'labels')
         self.image_files = os.listdir(self.images_dir)
