@@ -8,7 +8,7 @@ from utils import one_hot_it
 from torchvision import transforms
 
 class GTA5Dataset(Dataset):
-    def __init__(self, path, csv_file, transform, mode = 'train'):
+    def __init__(self, path, csv_file, mode = 'train'):
         self.path = "/content/GTA5"
         self.mode = mode
         self.label_info = self.get_label_info('/content/DAAI_semantic-segmentation/GTA5.csv')
