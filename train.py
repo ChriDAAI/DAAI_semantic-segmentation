@@ -14,7 +14,7 @@ from utils import reverse_one_hot, compute_global_accuracy, fast_hist, per_class
 from tqdm import tqdm
 import matplotlib.pyplot as plt
 import json
-from GTA5 import GTA5
+from GTA5 import GTA5Dataset
 
 logger = logging.getLogger()
 
