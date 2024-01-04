@@ -25,7 +25,7 @@ def val(args, model, dataloader):
         classes = []
 
         # Iterate over the items in the JSON file
-        for item in data:
+        for item in labels_info:
             # Check if 'ignoreInEval' is False
             if not item['ignoreInEval']:
                 # If so, append the 'name' to the list
