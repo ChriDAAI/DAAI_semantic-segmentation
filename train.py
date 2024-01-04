@@ -255,7 +255,7 @@ def main():
     elif args.dataset_train=='GTA5':
         print("Traning on GTA5 Dataset")
         dateset=GTA5Dataset(path_GTA5, mode)
-        train_dataset,val_dataset=split_dataset(datset)
+        train_dataset,val_dataset=split_dataset(dataset)
         
         
         
