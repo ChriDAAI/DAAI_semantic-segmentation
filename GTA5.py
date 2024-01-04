@@ -40,21 +40,21 @@ class GTA5Dataset(Dataset):
         return tensor_image, tensor_label 
 
 
-     def data_loader(self):
-         data= []
-         label = []
-         types = [ "labels/","images/"]
-            
-         for t in types:
-             for root, dirs, files in os.walk(self.path+t):
-                 for file in files:
-                     file_path = os.path.join(root, file)
-                     relative_path = os.path.relpath(file_path, self.path)
-                     if t=="images/":
-                         data.append(relative_path)
-                     else:
-                         label.append(relative_path)
-                     if len(data)==len(label):
-                         break
-             return sorted(data), sorted(label)
+    def data_loader(self):
+        data= []
+        label = []
+        types = [ "labels/","images/"]
+           
+        for t in types:
+            for root, dirs, files in os.walk(self.path+t):
+                for file in files:
+                    file_path = os.path.join(root, file)
+                    relative_path = os.path.relpath(file_path, self.path)
+                    if t=="images/":
+                        data.append(relative_path)
+                    else:
+                        label.append(relative_path)
+                    if len(data)==len(label):
+                        break
+            return sorted(data), sorted(label)
             
