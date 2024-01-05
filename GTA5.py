@@ -11,7 +11,7 @@ class GTA5Dataset(Dataset):
     def __init__(self, path, csv_file, mode = 'train'):
         self.path = "/content/GTA5"
         self.mode = mode
-        self.label_info = get_label_info('/content/DAAI_semantic-segmentation/GTA5.csv')
+        self.label_info = get_label_info_custom('/content/DAAI_semantic-segmentation/GTA5.csv')            #I create the list with the info coming from the .csv
         self.images_dir = os.path.join(path, 'images')
         self.labels_dir = os.path.join(path, 'labels')
         self.image_files = os.listdir(self.images_dir)
@@ -23,7 +23,7 @@ class GTA5Dataset(Dataset):
             transforms.ToTensor(),                 
             transforms.Normalize(mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225))
         ])
-        self.label = one_hot_it(self.label_colored,self.label_info)  # Convert label to TrainID format
+        self.label = one_hot_it_custom(self.label_colored,self.label_info)                                  # Convert label to TrainID format
 
     def __len__(self):
         return len(self.image_files)
