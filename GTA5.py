@@ -4,7 +4,7 @@ import numpy as np
 from PIL import Image
 from torch.utils.data import Dataset
 from utils import get_label_info_custom
-from utils import one_hot_it_custom
+from utils import from_label_to_TrainID
 from torchvision import transforms
 
 class GTA5Dataset(Dataset):
