@@ -90,7 +90,7 @@ def one_hot_it_custom(label, label_info):
 	# semantic_map = np.stack(semantic_map, axis=-1)
 	return semantic_map								#In the end I will have a matrix in which each element(representing a pixel) is colored with the corresponding trainId value (the image is becoming a grayscale image)
 
-def from_label_to_TrainID(label_colored, label_info,  path, height, width):
+def from_label_to_TrainID(label_colored, label_info, path, height, width):
   index=1                                               #To count the number of images
   label_list=[]                                         #To initialize the list of the path of the TRAINID images
   if not os.path.exists("/content/GTA5/TrainID"):       #To be sure that TrainID directory is not present yet
