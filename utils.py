@@ -100,7 +100,7 @@ def from_label_to_TrainID(label_colored, label_info,  path, height, width):
     file_path=f"/content/GTA5/TrainID/{str(index).zfill(5)}.png"              #I create a list of images according to the index
     label_list.append(f"TrainID/{str(index).zfill(5)}.png")                   #I have the relative path of the trainID images
     if not os.path.exists(file_path):
-      with open(label_colored, 'rb') as f:
+      with open(l, 'rb') as f:
         img=Image.open(f)                                                      #I open the label image
         img=img.convert("RGB").resize((width, height), Image.NEAREST)          #I convert it into RGB and resize it
         img=np.array(img)                                                      # I convert into np.array
