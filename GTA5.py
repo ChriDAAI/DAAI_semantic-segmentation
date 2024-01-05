@@ -3,8 +3,8 @@ import pandas as pd
 import numpy as np
 from PIL import Image
 from torch.utils.data import Dataset
-from utils import get_label_info
-from utils import one_hot_it
+from utils import get_label_info_custom
+from utils import one_hot_it_custom
 from torchvision import transforms
 
 class GTA5Dataset(Dataset):
@@ -12,10 +12,10 @@ class GTA5Dataset(Dataset):
         self.path = "/content/GTA5"
         self.mode = mode
         self.label_info = get_label_info_custom('/content/DAAI_semantic-segmentation/GTA5.csv')            #I create the list with the info coming from the .csv
-        self.images_dir = os.path.join(path, 'images')
-        self.labels_dir = os.path.join(path, 'labels')
-        self.image_files = os.listdir(self.images_dir)
-        self.data, self.label_colored = self.data_loader()
+        self.images_dir = os.path.join(path, 'images')                                                     #To load the path of the images
+        self.labels_dir = os.path.join(path, 'labels')                                                     #To load the path of the labels
+        self.image_files = os.listdir(self.images_dir)                                                     #To load 
+        self.data, self.label_colored = self.data_loader()                                                 #To load the path of the image and the colored label 
         self.width = 1024
         self.height = 512
         self.transform_data = transforms.Compose([ 
