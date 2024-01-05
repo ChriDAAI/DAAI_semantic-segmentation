@@ -24,7 +24,7 @@ class GTA5Dataset(Dataset):
             transforms.ToTensor(),                 
             transforms.Normalize(mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225))
         ])
-        self.label = one_hot_it_custom(self.label_colored_files,self.label_info)                                  # Convert label to TrainID format
+        self.label = from_label_to_TrainID(self.label_colored_files,self.label_info, self.path, self.height, self.width)                                  # Convert label to TrainID format
 
     def __len__(self):
         return len(self.image_files)
