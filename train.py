@@ -254,7 +254,7 @@ def main():
         val_dataset = CityScapes(path_cityscapes, mode='val')
     elif args.dataset_train=='GTA5':
         print("Traning on GTA5 Dataset")
-        dataset=GTA5Dataset(path_GTA5, mode)
+        dataset=GTA5Dataset()
         train_dataset,val_dataset=split_dataset(dataset)
         
         
