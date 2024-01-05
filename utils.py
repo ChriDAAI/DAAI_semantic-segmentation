@@ -38,7 +38,7 @@ def poly_lr_scheduler(optimizer, init_lr, iter, lr_decay_iter=2,
 
 def get_label_info(csv_path):
 	# return label -> {label_name: [r_value, g_value, b_value, ...}
-	ann = pd.read_csv(csv_path)
+	ann = pd.read_csv(csv_path)							#I need to read the .csv file
 	label = {}
 	for iter, row in ann.iterrows():
 		label_name = row['Name']
@@ -48,7 +48,21 @@ def get_label_info(csv_path):
 		class_11 = row['ID']
 		label[label_name] = [int(r), int(g), int(b), class_11]
 	return label
-
+	
+def get_label_info_custom(csv_path):
+	# return label -> {label_name: [r_value, g_value, b_value, ...}
+	ann = pd.read_csv(csv_path)							#I need to read the .csv file
+	label = []									#I create an empty list
+	for iter, row in ann.iterrows():						#For each row of the .csv
+		label_name = row['Name']						#I save the name of the category object
+		r = row['R']							
+		g = row['G']
+		b = row['B']								#I save the RGB values (the color)
+		class_11 = row['ID']							#I save the TrainID (the corresponding grayscale value) 
+		label.append([int(r), int(g), int(b), class_11])			#I build a list with all the informations
+		label_array=np.array(label)						#I convert the label into an array 
+	return label_array
+	
 def one_hot_it(label, label_info):
 	# return semantic_map -> [H, W]
 	semantic_map = np.zeros(label.shape[:-1])
@@ -61,6 +75,19 @@ def one_hot_it(label, label_info):
 		# semantic_map.append(class_map)
 	# semantic_map = np.stack(semantic_map, axis=-1)
 	return semantic_map
+
+def one_hot_it_custom(label, label_info):
+	# return semantic_map -> [H, W]
+	semantic_map = np.zeros(label.shape[:-1])					#To create a semantic map with the same dimensions of the label (HxW)
+	for info in label_info:								#For each row of the .csv file
+		color = info[:3]							#I exctract the color
+		# colour_map = np.full((label.shape[0], label.shape[1], label.shape[2]), colour, dtype=int)
+		equality = np.equal(label, color)					#I compare the color with the rgb image and I return a boolean matrix
+		class_map = np.all(equality, axis=-1)					#I look just at the last axis (the color) and I save the position of only the True values inside the equality matrix
+		semantic_map[class_map] = info[-1]					#Eanch of these value must be modified according to the trainID value
+		# semantic_map.append(class_map)
+	# semantic_map = np.stack(semantic_map, axis=-1)
+	return semantic_map								#In the end I will have a matrix in which each element(representing a pixel) is colored with the corresponding trainId value (the image is becoming a grayscale image)
 
 
 def one_hot_it_v11(label, label_info):
