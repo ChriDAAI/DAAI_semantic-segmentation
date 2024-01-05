@@ -94,7 +94,7 @@ def from_label_to_TrainID(label_colored, label_info,  path, height, width):
 	label_list=[]                                         #To initialize the list of the path of the TRAINID images
 	if not os.path.exists("/content/GTA5/TrainID"):       #To be sure that TrainID directory is not present yet
         	os.makedirs("/content/GTA5/TrainID")            #If is not present I create it
-    		print("Creating TRAIN_ID labels")
+    	print("Creating TRAIN_ID labels")
 	for l in label_colored: 
 		file_path=f"/content/GTA5/TrainID/{str(index).zfill(5)}.png"              #I create a list of images according to the index
     		label_list.append(f"TrainID/{str(index).zfill(5)}.png")                   #I have the relative path of the trainID images
