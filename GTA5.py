@@ -32,7 +32,7 @@ class GTA5Dataset(Dataset):
 
     def __getitem__(self, idx):
         img_name = os.path.join(self.images_dir, self.image_files[idx])
-        label_name = os.path.join(self.labels_dir_trainID, self.label[idx])
+        label_name = os.path.join(self.path, self.label[idx])                        #This is because self.label has already the path TrainID/
         image = Image.open(img_name).convert('RGB')
         label = Image.open(label_name).convert('L')
         
