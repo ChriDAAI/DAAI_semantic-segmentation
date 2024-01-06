@@ -30,8 +30,8 @@ class GTA5Dataset(Dataset):
         return len(self.image_files)
 
     def __getitem__(self, idx):
-        img_name = os.path(self.image_files[idx])
-        label_name = os.path(self.label[idx])
+        img_name = os.path.join(self.image_files[idx])
+        label_name = os.path.join(self.label[idx])
         image = Image.open(img_name).convert('RGB')
         label = Image.open(label_name).convert('L')
         
