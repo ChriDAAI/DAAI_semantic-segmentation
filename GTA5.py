@@ -6,6 +6,7 @@ from torch.utils.data import Dataset
 from utils import get_label_info_custom
 from utils import from_label_to_TrainID
 from torchvision import transforms
+import torch
 
 class GTA5Dataset(Dataset):
     def __init__(self, mode = 'train'):
