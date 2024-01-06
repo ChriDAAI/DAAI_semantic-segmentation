@@ -14,8 +14,8 @@ class GTA5Dataset(Dataset):
         self.label_info = get_label_info_custom('/content/DAAI_semantic-segmentation/GTA5.csv')                  #I create the list with the info coming from the .csv
         self.images_dir = os.path.join(self.path, 'images/')                                                     #To load the path of the images
         self.labels_dir = os.path.join(self.path, 'labels/')                                                     #To load the path of the labels
-        self.image_files = os.listdir(self.images_dir)                                                           #To load the pathe containg the names of the images
-        self.label_colored_files = os.listdir(self.labels_dir)                                                   #To load the pathe containg the names of the labels
+        self.image_files = os.listdir(sorted(self.images_dir))                                                           #To load the pathe containg the names of the images
+        self.label_colored_files = os.listdir(sorted(self.labels_dir))                                                   #To load the pathe containg the names of the labels
         #self.data, self.label_colored = self.data_loader()                                                 #To load the path of the image and the colored label 
         self.width = 1024
         self.height = 512
