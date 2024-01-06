@@ -16,7 +16,7 @@ class GTA5Dataset(Dataset):
         self.labels_dir_colored = os.path.join(self.path, 'labels/')    #To load the path of the labels
         self.labels_dir_trainID = os.path.join(self.path, 'TrainID/')
         self.image_files = sorted(os.listdir(self.images_dir))                                                          #To load the pathe containg the names of the images
-        self.label_colored_files = sorted(os.listdir(self.labels_dir))                                                 #To load the pathe containg the names of the labels
+        self.label_colored_files = sorted(os.listdir(self.labels_dir_colored))                                                 #To load the pathe containg the names of the labels
         #self.data, self.label_colored = self.data_loader()                                                 #To load the path of the image and the colored label 
         self.width = 1024
         self.height = 512
