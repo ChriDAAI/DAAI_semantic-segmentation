@@ -233,6 +233,9 @@ def parse_args():
     parse.add_argument('--dataset_train',
                       type=str,
                       default='Cityscapes')
+    parse.add_argument('--dataset_test',
+                      type=str,
+                      default='Cityscapes')
 
 
     return parse.parse_args()
@@ -251,17 +254,20 @@ def main():
     if args.dataset_train=='Cityscapes':
         print("Training on Cityscape Dataset")
         train_dataset = CityScapes(path_cityscapes, mode=mode)
-        val_dataset = CityScapes(path_cityscapes, mode='val')
     elif args.dataset_train=='GTA5':
-        print("Traning on GTA5 Dataset")
+        print("Training on GTA5 Dataset")
         dataset=GTA5Dataset()
-        train_dataset,val_dataset=split_dataset(dataset)
-        
-        
-        
-    
+        train_dataset,_=split_dataset(dataset)
 
-    
+    if args.datset_test=='Cityscape':
+        print("Testing on Cityscapes Dataset")
+        val_dataset = CityScapes(path_cityscapes, mode='val')
+    elif args.dataset_test == 'GTA5':
+        print("Testing on GTA5")
+        dataset=GTA5Dataset()
+        _,val_dataset=split_dataset(dataset)
+
+            
     dataloader_train = DataLoader(train_dataset,
                     batch_size=args.batch_size,
                     shuffle=False,
