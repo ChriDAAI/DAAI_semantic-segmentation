@@ -252,14 +252,14 @@ def main():
     path_GTA5 = "/content/GTA5"
 
     if args.dataset_train=='Cityscapes':
-        print("Training on Cityscape Dataset")
+        print("Training on Cityscapes Dataset")
         train_dataset = CityScapes(path_cityscapes, mode=mode)
     elif args.dataset_train=='GTA5':
         print("Training on GTA5 Dataset")
         dataset=GTA5Dataset()
         train_dataset,_=split_dataset(dataset)
 
-    if args.dataset_test=='Cityscape':
+    if args.dataset_test=='Cityscapes':
         print("Testing on Cityscapes Dataset")
         val_dataset = CityScapes(path_cityscapes, mode='val')
     elif args.dataset_test == 'GTA5':
