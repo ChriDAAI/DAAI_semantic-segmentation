@@ -43,7 +43,7 @@ class CityScapes(Dataset):
       for city in os.listdir(self.images):
         img_city_dir = os.path.join(self.images, city)
         label_city_dir = os.path.join(self.gtFine, city)
-        if os.path.isdie(img_city_dir) and os.path.isdir(label_city_dir):
+        if os.path.isdir(img_city_dir) and os.path.isdir(label_city_dir):
           for img_name in os.listdir(img_city_dir):
             label_name = img_name.replace("_leftImg8bit.png", "_labelTrainIds.png")
             img_path = os.path.join(img_city_dir, img_name)
