@@ -36,8 +36,8 @@ class CityScapes(Dataset):
         tensor_label = torch.from_numpy(np.array(label))  
         return tensor_image, tensor_label 
 
-    def loader(self, p, mode):
-        with open(self.path+p, 'rb') as f:
+    def loader(self, mode):
+        with open(self.path, 'rb') as f:
             img = Image.open(f)
             return img.convert(mode).resize((self.width, self.height), Image.NEAREST)
       
