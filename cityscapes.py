@@ -10,8 +10,8 @@ class CityScapes(Dataset):
     def __init__(self, mode):
         self.path = "/content/Cityscapes/Cityspaces"
         self.mode = mode
-        self.images = os.path.join(self.path, 'images/', mode)
-        self.gtFine = os.path.join(self.path, 'gtFine/', mode)
+        self.images = os.path.join(self.path, 'images/', self.mode)
+        self.gtFine = os.path.join(self.path, 'gtFine/', self.mode)
         self.list, self.labels = self.getdata()
         self.width = 1024
         self.height = 512
