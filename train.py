@@ -247,7 +247,7 @@ def main():
     ## dataset
     n_classes = args.num_classes
 
-    #mode = args.mode
+    mode = args.mode
     path_cityscapes = "/content/Cityscapes/Cityspaces"
     path_GTA5 = "/content/GTA5"
 
