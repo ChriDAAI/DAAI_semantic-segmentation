@@ -46,7 +46,7 @@ class CityScapes(Dataset):
         label_city_dir = os.path.join(self.gtFine, city)
         if os.path.isdir(img_city_dir) and os.path.isdir(label_city_dir):
           for img_name in os.listdir(img_city_dir):
-            label_name = img_name.replace("_leftImg8bit.png", "_labelTrainIds.png")
+            label_name = img_name.replace("_leftImg8bit.png", "_gtFine_labelTrainIds.png")
             img_path = os.path.join(img_city_dir, img_name)
             list.append(img_path)
             label_path = os.path.join(label_city_dir, label_name)
