@@ -247,13 +247,13 @@ def main():
     ## dataset
     n_classes = args.num_classes
 
-    mode = args.mode
+    #mode = args.mode
     path_cityscapes = "/content/Cityscapes/Cityspaces"
     path_GTA5 = "/content/GTA5"
 
     if args.dataset_train=='Cityscapes':
         print("Training on Cityscapes Dataset")
-        train_dataset = CityScapes(path_cityscapes)
+        train_dataset = CityScapes(mode)
     elif args.dataset_train=='GTA5':
         print("Training on GTA5 Dataset")
         dataset=GTA5Dataset()
@@ -261,7 +261,7 @@ def main():
 
     if args.dataset_test=='Cityscapes':
         print("Testing on Cityscapes Dataset")
-        val_dataset = CityScapes(path_cityscapes, mode='val')
+        val_dataset = CityScapes(mode='val')
     elif args.dataset_test == 'GTA5':
         print("Testing on GTA5")
         dataset=GTA5Dataset()
