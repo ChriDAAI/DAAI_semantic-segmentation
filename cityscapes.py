@@ -49,6 +49,6 @@ class CityScapes(Dataset):
             img_path = os.path.join(img_city_dir, img_name)
             list.append(img_path)
             label_path = os.path.join(label_city_dir, label_name)
-            label.append(label_path)
+            labels.append(label_path)
             
-      return sorted(list), sorted(label)
+      return sorted(list), sorted(labels)
