@@ -96,7 +96,7 @@ class CityScapes(Dataset):
             img, label = im_lb['im'], im_lb['lb']
         img = self.transformed_data(img)
         label = np.array(label).astype(np.int64)[np.newaxis, :]
-        label = self.convert_labels(label)
+        #label = self.convert_labels(label)
         return img, label
 
 
@@ -104,10 +104,10 @@ class CityScapes(Dataset):
         return self.len
 
 
-    def convert_labels(self, label):
-        for k, v in self.lb_map.items():
-            label[label == k] = v
-        return label
+    #def convert_labels(self, label):
+     #   for k, v in self.lb_map.items():
+      #      label[label == k] = v
+       # return label
 
 
 
