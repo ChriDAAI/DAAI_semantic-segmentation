@@ -7,7 +7,7 @@ from torchvision import transforms
 import torch
 
 class CityScapes(Dataset):
-    def __init__(self, mode = 'train'):
+    def __init__(self, mode):
         self.path = "/content/Cityscapes/Cityspaces"
         self.mode = mode
         self.images = os.path.join(self.path, 'images/', mode)
@@ -27,7 +27,7 @@ class CityScapes(Dataset):
 
     def __getitem__(self, idx):
         img_name = os.path.join(self.list[idx])
-        label_name = os.path.join(self.label[idx])  
+        label_name = os.path.join(self.label[idx])
         image = Image.open(img_name).convert('RGB')
         label = Image.open(label_name).convert('L')
         
