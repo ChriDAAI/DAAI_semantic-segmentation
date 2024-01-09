@@ -36,19 +36,19 @@ class CityScapes(Dataset):
         tensor_label = torch.from_numpy(np.array(label))  
         return tensor_image, tensor_label 
       
-def getdata(self):
-  list = []
-  labels = []
-
-  for city in os.listdir(self.images):
-    img_city_dir = os.path.join(self.images, city)
-    label_city_dir = os.path.join(self.labels, city)
-    if os.path.isdie(img_city_dir) and os.path.isdir(label_city_dir):
-      for img_name in os.listdir(img_city_dir):
-        label_name = img_name.replace("_leftImg8bit.png", "_gtFine_labelTrainIds.png")
-        img_path = os.path.join(img_city_dir, img_name)
-        list.append(img_path)
-        label_path = os.path.join(label_city_dir, label_name)
-        label.append(label_path)
-        
-  return sorted(list), sorted(label)
+    def getdata(self):
+      list = []
+      labels = []
+    
+      for city in os.listdir(self.images):
+        img_city_dir = os.path.join(self.images, city)
+        label_city_dir = os.path.join(self.labels, city)
+        if os.path.isdie(img_city_dir) and os.path.isdir(label_city_dir):
+          for img_name in os.listdir(img_city_dir):
+            label_name = img_name.replace("_leftImg8bit.png", "_gtFine_labelTrainIds.png")
+            img_path = os.path.join(img_city_dir, img_name)
+            list.append(img_path)
+            label_path = os.path.join(label_city_dir, label_name)
+            label.append(label_path)
+            
+      return sorted(list), sorted(label)
