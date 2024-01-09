@@ -253,7 +253,7 @@ def main():
 
     if args.dataset_train=='Cityscapes':
         print("Training on Cityscapes Dataset")
-        train_dataset = CityScapes(path_cityscapes, mode=mode)
+        train_dataset = CityScapes(path_cityscapes, mode='train')
     elif args.dataset_train=='GTA5':
         print("Training on GTA5 Dataset")
         dataset=GTA5Dataset()
