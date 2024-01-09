@@ -8,6 +8,7 @@ import torch
 
 class CityScapes(Dataset):
     def __init__(self, mode):
+        super(CityScapes, self).__init__()
         self.path = "/content/Cityscapes/Cityspaces"
         self.mode = mode
         self.images = os.path.join(self.path, 'images/', self.mode)
