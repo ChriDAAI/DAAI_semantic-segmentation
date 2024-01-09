@@ -11,7 +11,7 @@ class CityScapes(Dataset):
         self.path = "/content/Cityscapes/Cityspaces"
         self.mode = mode
         self.images = os.path.join(self.path, 'images/', mode)
-        self.gtFine = self.gtFine = os.path.join(self.path, 'gtFine/', mode)
+        self.gtFine = os.path.join(self.path, 'gtFine/', mode)
         self.list, self.labels = self.getdata()
         self.width = 1024
         self.height = 512
@@ -42,10 +42,10 @@ class CityScapes(Dataset):
     
       for city in os.listdir(self.images):
         img_city_dir = os.path.join(self.images, city)
-        label_city_dir = os.path.join(self.labels, city)
+        label_city_dir = os.path.join(self.gtFine, city)
         if os.path.isdie(img_city_dir) and os.path.isdir(label_city_dir):
           for img_name in os.listdir(img_city_dir):
-            label_name = img_name.replace("_leftImg8bit.png", "_gtFine_labelTrainIds.png")
+            label_name = img_name.replace("_leftImg8bit.png", "_labelTrainIds.png")
             img_path = os.path.join(img_city_dir, img_name)
             list.append(img_path)
             label_path = os.path.join(label_city_dir, label_name)
