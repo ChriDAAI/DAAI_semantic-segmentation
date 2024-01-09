@@ -17,7 +17,6 @@ class CityScapes(Dataset):
         self.width = 1024
         self.height = 512
         self.transform_data = transforms.Compose([ 
-            transforms.Resize((self.height, self.width)),
             transforms.ToTensor(),                 
             transforms.Normalize(mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225))
         ])
@@ -27,8 +26,8 @@ class CityScapes(Dataset):
         return len(self.list)
 
     def __getitem__(self, idx):
-        img_name = os.path.join(self.list[idx])
-        label_name = os.path.join(self.labels[idx])
+        img_name = self.loader(self.list[idx], 'RGB')
+        label_name = self.loader(self.labels[idx], 'L')
         image = Image.open(img_name).convert('RGB')
         label = Image.open(label_name).convert('L')
         
@@ -36,6 +35,11 @@ class CityScapes(Dataset):
         tensor_image = self.transform_data(image)
         tensor_label = torch.from_numpy(np.array(label))  
         return tensor_image, tensor_label 
+
+    def loader(self, p, mode):
+        with open(self.path+p, 'rb') as f:
+            img = Image.open(f)
+            return img.convert(mode).resize((self.width, self.height), Image.NEAREST)
       
     def getdata(self):
       list = []
