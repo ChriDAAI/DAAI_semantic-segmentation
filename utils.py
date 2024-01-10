@@ -66,7 +66,7 @@ def get_label_info_custom(csv_path):
 	
 def one_hot_it(label, label_info):
 	# return semantic_map -> [H, W]
-	semantic_map = np.zeros(label.shape[:-1])
+	semantic_map = np.zeros(label.shape[:-1], dtype=np.uint8)
 	for index, info in enumerate(label_info):
 		color = label_info[info]
 		# colour_map = np.full((label.shape[0], label.shape[1], label.shape[2]), colour, dtype=int)
