@@ -66,9 +66,9 @@ def val(args, model, dataloader):
         miou = np.mean(miou_list)
         print('precision per pixel for test: %.3f' % precision)
         print('mIoU for validation: %.3f' % miou)
-        print(f'mIoU per class: {miou_list}')
-        #for i in range(len(classes)):
-         #   print(f'mIoU per class {classes[i]}: {miou_list[i]:.3f}')
+       # print(f'mIoU per class: {miou_list}')
+        for i in range(len(classes)):
+            print(f'mIoU per class {classes[i]}: {miou_list[i]:.3f}')
                  
         return precision, miou
 
