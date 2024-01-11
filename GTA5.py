@@ -10,7 +10,7 @@ import torch
 
 class GTA5Dataset(Dataset):
     def __init__(self, mode):
-        super(GTA5, self).__init__()
+        super(GTA5Dataset, self).__init__()
         self.path = "/content/GTA5"
         self.mode = mode
         self.label_info = get_label_info_custom('/content/DAAI_semantic-segmentation/GTA5.csv')                  #I create the list with the info coming from the .csv
