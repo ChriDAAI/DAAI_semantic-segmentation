@@ -9,7 +9,8 @@ from torchvision import transforms
 import torch
 
 class GTA5Dataset(Dataset):
-    def __init__(self, mode = 'train'):
+    def __init__(self, mode):
+        super(GTA5, self).__init__()
         self.path = "/content/GTA5"
         self.mode = mode
         self.label_info = get_label_info_custom('/content/DAAI_semantic-segmentation/GTA5.csv')                  #I create the list with the info coming from the .csv
@@ -22,7 +23,6 @@ class GTA5Dataset(Dataset):
         self.width = 1024
         self.height = 512
         self.transform_data = transforms.Compose([ 
-            transforms.Resize((self.height, self.width)),
             transforms.ToTensor(),                 
             transforms.Normalize(mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225))
         ])
@@ -34,8 +34,8 @@ class GTA5Dataset(Dataset):
     def __getitem__(self, idx):
         img_name = os.path.join(self.images_dir, self.image_files[idx])
         label_name = os.path.join(self.path, self.label[idx])                        #This is because self.label has already the path TrainID/
-        image = Image.open(img_name).convert('RGB')
-        label = Image.open(label_name).convert('L')
+        image = Image.open(img_name).convert('RGB').resize((self.width, self.height), Image.NEAREST)
+        label = Image.open(label_name).convert('L').resize((self.width, self.height), Image.NEAREST)
         
         
         tensor_image = self.transform_data(image)
