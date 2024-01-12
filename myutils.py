@@ -44,7 +44,7 @@ def get_label_info_custom(csv_path):
     return np.array(label)
 
 def from_RGB_to_LabelID(label_colored,path,height,width):
-    label_info = get_label_info_custom('/content/DA_Semantic_Segmentation/GTA.csv') 
+    label_info = get_label_info_custom('/content/DAAI_semantic-segmentation/GTA5.csv') 
     index=1
     label_list=[]
     if not os.path.exists("/content/GTA5/TrainID"):
