@@ -17,16 +17,15 @@ class GTA5Dataset(Dataset):
         self.images_dir = os.path.join(self.path, 'images/')                                                     #To load the path of the images
         self.labels_dir_colored = os.path.join(self.path, 'labels/')    #To load the path of the labels
         self.labels_dir_trainID = os.path.join(self.path, 'TrainID/')
-        self.image_files = sorted(os.listdir(self.images_dir))                                                          #To load the pathe containg the names of the images
-        self.label_colored_files = sorted(os.listdir(self.labels_dir_colored))                                                 #To load the pathe containg the names of the labels
-        #self.data, self.label_colored = self.data_loader()                                                 #To load the path of the image and the colored label 
+        self.image_files = sorted(os.listdir(self.images_dir))                                                   #To load the pathe containg the names of the images
+        self.label_colored_files = sorted(os.listdir(self.labels_dir_colored))                                   #To load the pathe containg the names of the labels
         self.width = 1024
         self.height = 512
         self.transform_data = transforms.Compose([ 
             transforms.ToTensor(),                 
             transforms.Normalize(mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225))
         ])
-        self.label = from_label_to_TrainID(self.label_colored_files,self.label_info,  self.labels_dir_colored, self.height, self.width)                                  # Convert label to TrainID format
+        self.label = from_label_to_TrainID(self.label_colored_files,self.label_info,  self.labels_dir_colored, self.height, self.width)                            # Convert label to TrainID format
 
     def __len__(self):
         return len(self.image_files)
@@ -42,23 +41,4 @@ class GTA5Dataset(Dataset):
         tensor_image = self.transform_data(image)
         tensor_label = torch.from_numpy(np.array(label))  
         return tensor_image, tensor_label 
-
-
-    #def data_loader(self):
-    #    data= []
-    #   label = []
-    #    types = [ "labels/","images/"]
-           
-    #    for t in types:
-    #        for root, dirs, files in os.walk(self.path+t):
-    #            for file in files:
-    #                file_path = os.path.join(root, file)
-    #                relative_path = os.path.relpath(file_path, self.path)
-    #                if t=="images/":
-    #                    data.append(relative_path)
-    #                else:
-    #                    label.append(relative_path)
-    #                if len(data)==len(label):
-    #                    break
-    #        return sorted(data), sorted(label)
             
