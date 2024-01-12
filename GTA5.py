@@ -34,9 +34,10 @@ class GTA5Dataset(Dataset):
     def __getitem__(self, idx):
         img_name = os.path.join(self.images_dir, self.image_files[idx])
         label_name = os.path.join(self.path, self.label[idx])                        #This is because self.label has already the path TrainID/
-        image = Image.open(img_name).convert('RGB').resize((self.width, self.height), Image.NEAREST)
-        label = Image.open(label_name).convert('L').resize((self.width, self.height), Image.NEAREST)
-        
+        with open(img_name, 'rb') as f: 
+            image = Image.open(f).convert('RGB').resize((self.width, self.height), Image.NEAREST)
+        with open(label_name, 'rb') as b:
+            label = Image.open(label_name).convert('L').resize((self.width, self.height), Image.NEAREST)        
         
         tensor_image = self.transform_data(image)
         tensor_label = torch.from_numpy(np.array(label))  
