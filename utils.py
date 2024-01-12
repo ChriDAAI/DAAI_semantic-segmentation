@@ -13,13 +13,13 @@ import os
 
 
 def split_dataset(toSplit):
-    inds = range(0, len(toSplit))
-    splitting = train_test_split(inds, train_size = 0.75, random_state = 42, stratify = None, shuffle = True)
-    train_indexes = splitting[0]
-    val_indexes = splitting[1]
-    return Subset(toSplit,train_indexes),Subset(toSplit,val_indexes)
+    inds = range(0, len(toSplit))					#How many samples I have
+    splitting = train_test_split(inds, train_size = 0.75, random_state = 42, stratify = None, shuffle = True) #Split dataset
+    train_indexes = splitting[0]	#Save trining indeces
+    val_indexes = splitting[1]		#Save validation indeces
+    return Subset(toSplit,train_indexes),Subset(toSplit,val_indexes)	#Return the test_dataset based on the whole dataset and considering only the indeces assigned to train
 
-def poly_lr_scheduler(optimizer, init_lr, iter, lr_decay_iter=2,
+def poly_lr_scheduler(optimizer, init_lr, iter, lr_decay_iter=1,
                       max_iter=300, power=0.9):
 	"""Polynomial decay of learning rate
 		:param init_lr is base learning rate
