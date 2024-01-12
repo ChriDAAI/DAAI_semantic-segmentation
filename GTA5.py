@@ -11,34 +11,34 @@ import torch
 class GTA5Dataset(Dataset):
     def __init__(self, mode):
         super(GTA5Dataset, self).__init__()
-        self.path = "/content/GTA5"
-        self.mode = mode
+        self.path = "/content/GTA5"                                                                              #Main GTA5 directory 
+        self.mode = mode                                                                                         #Train or validation
         self.label_info = get_label_info_custom('/content/DAAI_semantic-segmentation/GTA5.csv')                  #I create the list with the info coming from the .csv
-        self.images_dir = os.path.join(self.path, 'images/')                                                     #To load the path of the images
-        self.labels_dir_colored = os.path.join(self.path, 'labels/')    #To load the path of the labels
-        self.labels_dir_trainID = os.path.join(self.path, 'TrainID/')
-        self.image_files = sorted(os.listdir(self.images_dir))                                                   #To load the pathe containg the names of the images
-        self.label_colored_files = sorted(os.listdir(self.labels_dir_colored))                                   #To load the pathe containg the names of the labels
-        self.width = 1024
+        self.images_dir = os.path.join(self.path, 'images/')                                                     #To load the path of the images (/content/GTA5/images)
+        self.labels_dir_colored = os.path.join(self.path, 'labels/')                                             #To load the path of the labels (/content/GTA5/labels)
+        self.labels_dir_trainID = os.path.join(self.path, 'TrainID/')                                            #To load the path of the labels (/content/GTA5/TrainID)
+        self.image_files = sorted(os.listdir(self.images_dir))                                                   #To load the path containg the names of the images ('00001.png')
+        self.label_colored_files = sorted(os.listdir(self.labels_dir_colored))                                   #To load the path containg the names of the labels ('00001.png')
+        self.width = 1024                                                                                        
         self.height = 512
         self.transform_data = transforms.Compose([ 
             transforms.ToTensor(),                 
             transforms.Normalize(mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225))
         ])
-        self.label = from_label_to_TrainID(self.label_colored_files,self.label_info,  self.labels_dir_colored, self.height, self.width)                            # Convert label to TrainID format
+        self.label = from_label_to_TrainID(self.label_colored_files,self.label_info, self.labels_dir_colored, self.height, self.width)           #Convert label to TrainID format
 
     def __len__(self):
-        return len(self.image_files)
+        return len(self.image_files)                                            
 
     def __getitem__(self, idx):
-        img_name = os.path.join(self.images_dir, self.image_files[idx])
-        label_name = os.path.join(self.path, self.label[idx])                        #This is because self.label has already the path TrainID/
+        img_name = os.path.join(self.images_dir, self.image_files[idx])                                          #Join (/content/GTA5/images) and '00001.png
+        label_name = os.path.join(self.path, self.label[idx])                                                    #This is because self.label has already the path TrainID/
         with open(img_name, 'rb') as f: 
-            image = Image.open(f).convert('RGB').resize((self.width, self.height), Image.NEAREST)
+            image = Image.open(f).convert('RGB').resize((self.width, self.height), Image.NEAREST)                #I open the image, resize and convert in RGB
         with open(label_name, 'rb') as b:
-            label = Image.open(label_name).convert('L').resize((self.width, self.height), Image.NEAREST)        
+            label = Image.open(label_name).convert('L').resize((self.width, self.height), Image.NEAREST)        #I open the TrainID, resize and convert in L
         
-        tensor_image = self.transform_data(image)
-        tensor_label = torch.from_numpy(np.array(label))  
+        tensor_image = self.transform_data(image)                                                               #To have a tensor
+        tensor_label = torch.from_numpy(np.array(label))                                                        #To have a tensor
         return tensor_image, tensor_label 
             
