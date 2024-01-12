@@ -9,7 +9,7 @@ from pprint import pprint
 from PIL import Image
 import numpy as np
 import pandas as pd
-from utils import from_RGB_to_LabelID, DataAugmentation
+from myutils import from_RGB_to_LabelID, DataAugmentation
 
 class GTA5(Dataset):
     def __init__(self, mode, enable_da=False):
