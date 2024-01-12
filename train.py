@@ -14,8 +14,8 @@ from utils import reverse_one_hot, compute_global_accuracy, fast_hist, per_class
 from tqdm import tqdm
 import matplotlib.pyplot as plt
 import json
-#from GTA5 import GTA5Dataset
-from gta5 import GTA5
+from GTA5 import GTA5Dataset
+#from gta5 import GTA5
 
 logger = logging.getLogger()
 
@@ -258,8 +258,8 @@ def main():
         train_dataset = CityScapes(path_cityscapes, mode)
     elif args.dataset_train=='GTA5':
         print("Training on GTA5 Dataset")
-        #dataset=GTA5Dataset(mode)
-        dataset=GTA5(mode)
+        dataset=GTA5Dataset(mode)
+        #dataset=GTA5(mode)
         train_dataset,_=split_dataset(dataset)
 
     if args.dataset_test=='Cityscapes':
@@ -267,8 +267,8 @@ def main():
         val_dataset = CityScapes(path_cityscapes, mode='val')
     elif args.dataset_test == 'GTA5':
         print("Testing on GTA5")
-        dataset=GTA5(mode = 'val')
-        #dataset=GTA5Dataset(mode = 'val')
+        #dataset=GTA5(mode = 'val')
+        dataset=GTA5Dataset(mode = 'val')
         _,val_dataset=split_dataset(dataset)
 
             
