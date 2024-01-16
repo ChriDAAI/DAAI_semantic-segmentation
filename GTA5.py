@@ -19,8 +19,8 @@ class GTA5Dataset(Dataset):
         self.images_dir = os.path.join(self.path, 'images/')                                                     #To load the path of the images (/content/GTA5/images)
         self.labels_dir_colored = os.path.join(self.path, 'labels/')                                             #To load the path of the labels (/content/GTA5/labels)
         self.labels_dir_trainID = os.path.join(self.path, 'TrainID/')                                            #To load the path of the labels (/content/GTA5/TrainID)
-        self.image_files, self.label_colored_files = self.data_loader()                                                   #To load the path containg the names of the images ('00001.png')
-        #self.label_colored_files = sorted(os.listdir(self.labels_dir_colored))                                   #To load the path containg the names of the labels ('00001.png')
+        self.image_files = sorted(os.listdir(self.images_dir))                                                   #To load the path containg the names of the images ('00001.png')
+        self.label_colored_files = sorted(os.listdir(self.labels_dir_colored))                                   #To load the path containg the names of the labels ('00001.png')
         self.width = 1024                                                                                        
         self.height = 512
         self.transform_data = transforms.Compose([ 
@@ -42,22 +42,4 @@ class GTA5Dataset(Dataset):
         
         tensor_image = self.transform_data(image)                                                               #To have a tensor
         tensor_label = torch.from_numpy(np.array(label))                                                        #To have a tensor
-        return tensor_image, tensor_label
-
-    def data_loader(self):
-        data= []
-        label = []
-        types = [ "labels/","images/"]
-        
-        for t in types:
-            for root, dirs, files in os.walk(self.path+t):
-                for file in files:
-                    file_path = os.path.join(root, file)
-                    relative_path = os.path.relpath(file_path, self.path)
-                    if t=="images/":
-                        data.append(os.path.basename(relative_path))
-                    else:
-                        label.append(os.path.basename(relative_path))
-                    if len(data)==len(label):
-                        break
-        return sorted(data), sorted(label)
+        return tensor_image, tensor_label.long()
