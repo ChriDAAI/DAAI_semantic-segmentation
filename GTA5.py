@@ -61,9 +61,9 @@ class GTA5Dataset(Dataset):
                     file_path = os.path.join(root, file)
                     relative_path = os.path.relpath(file_path, self.path)
                     if d=="images/":
-                        img.append(os.path.basename(relative_path))
+                        img.append(relative_path)
                     else:
-                        lbl.append(os.path.basename(relative_path))
+                        lbl.append(relative_path)
                     if len(img)==len(lbl):
                         break
         return sorted(img), sorted(lbl)
