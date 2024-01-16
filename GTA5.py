@@ -32,8 +32,8 @@ class GTA5Dataset(Dataset):
         return len(self.image_files)                                            
 
     def __getitem__(self, idx):
-        img_name = os.path.join(self.path +"/"+ self.image_files[idx])                                          
-        label_name = os.path.join(self.path +"/"+ self.label[idx])                                                    
+        img_name = os.path.join(self.images_dir, self.image_files[idx])                                          
+        label_name = os.path.join(self.labels_dir_colored, self.label[idx])                                                    
         with open(img_name, 'rb') as f: 
             image = Image.open(f).convert('RGB').resize((self.width, self.height), Image.NEAREST)                #I open the image, resize and convert in RGB
         with open(label_name, 'rb') as b:
@@ -53,9 +53,9 @@ class GTA5Dataset(Dataset):
                     file_path = os.path.join(root, file)
                     relative_path = os.path.relpath(file_path, self.path)
                     if d == "images/":
-                        img.append(relative_path)
+                        img.append(os.path.basename(relative_path))
                     else:
-                        lbs.append(relative_path)
+                        lbs.append(os.path.basename(relative_path))
                     if len(img)==len(lbs):
                         break
         return sorted(img), sorted(lbs)
