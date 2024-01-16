@@ -34,7 +34,7 @@ class GTA5Dataset(Dataset):
         #self.enable_da = enable_da
 
     def __getitem__(self, idx):
-        img_name = os.path.join(self.images_dir, self.image_files[idx])                                          #Join (/content/GTA5/images) and '00001.png
+        img_name = os.path.join(self.images_dir, self.images_files[idx])                                          #Join (/content/GTA5/images) and '00001.png
         label_name = os.path.join(self.path, self.label[idx])                                                    #This is because self.label has already the path TrainID/
         with open(img_name, 'rb') as f: 
             image = Image.open(f).convert('RGB').resize((self.width, self.height), Image.NEAREST)                #I open the image, resize and convert in RGB
