@@ -46,7 +46,7 @@ class GTA5Dataset(Dataset):
         return tensor_image, tensor_label
 
     def __len__(self):
-        return len(self.data)
+        return len(self.images_files)
     
     def data_loader(self):
         img= []
