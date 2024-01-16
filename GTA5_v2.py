@@ -33,7 +33,7 @@ class GTA5Dataset(Dataset):
         #self.data_augmentation= DataAugmentation()
         #self.enable_da = enable_da
     
-    def pil_loader(self, p, mode):
+    def pil_loader(p, mode):
         with open(p, 'rb') as f:
             img = Image.open(f)
             return img.convert(mode).resize((self.width, self.height), Image.NEAREST)
