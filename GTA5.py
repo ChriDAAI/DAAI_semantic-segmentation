@@ -46,7 +46,7 @@ class GTA5Dataset(Dataset):
         lbs = []
         domain = ["labels/", "images/"]
         for d in domain:
-            for root, dirs, files in os.walk(self.path+domain):
+            for root, dirs, files in os.walk(self.path+d):
                 for file in files:
                     file_path = os.path.join(root, file)
                     relative_path = os.path.relpath(file_path, self.path)
