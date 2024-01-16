@@ -62,7 +62,7 @@ class GTA5Dataset(Dataset):
                         img.append(os.path.basename(relative_path))
                     else:
                         lbl.append(os.path.basename(relative_path))
-                    if len(data)==len(lbl):
+                    if len(img)==len(lbl):
                         break
         return sorted(img), sorted(lbl)
            
