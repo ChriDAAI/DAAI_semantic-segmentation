@@ -21,7 +21,7 @@ class GTA5Dataset(Dataset):
         self.labels_dir_trainID = os.path.join(self.path, 'TrainID/')                                            #To load the path of the labels (/content/GTA5/TrainID)
         self.image_files = sorted(os.listdir(self.images_dir))                                                   #To load the path containg the names of the images ('00001.png')
         self.label_colored_files = sorted(os.listdir(self.labels_dir_colored))                                   #To load the path containg the names of the labels ('00001.png')
-        self.img = os.path.join('images/', self.image_files)
+        self.imge = os.path.join('images/', self.image_files)
         self.width = 1024                                                                                        
         self.height = 512
         self.transform_data = transforms.Compose([ 
@@ -40,7 +40,7 @@ class GTA5Dataset(Dataset):
         return len(self.image_files)                                            
 
     def __getitem__(self, idx):
-        image = self.pil_loader(self.img[idx], 'RGB')
+        image = self.pil_loader(self.imge[idx], 'RGB')
         label = self.pil_loader(self.label[idx], 'L')
         
         tensor_image = self.transform_data(image)                                                               #To have a tensor
