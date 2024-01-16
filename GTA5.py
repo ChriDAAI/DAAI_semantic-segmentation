@@ -21,7 +21,7 @@ class GTA5Dataset(Dataset):
         self.labels_dir_trainID = os.path.join(self.path, 'TrainID/')                                            #To load the path of the labels (/content/GTA5/TrainID)
         self.image_files = sorted(os.listdir(self.images_dir))                                                   #To load the path containg the names of the images ('00001.png')
         self.label_colored_files = sorted(os.listdir(self.labels_dir_colored))                                   #To load the path containg the names of the labels ('00001.png')
-        self.imge = [os.path.join('images/', img) for img in self.image_files]
+        self.imge = [os.path.join('/images/', img) for img in self.image_files]
         self.width = 1024                                                                                        
         self.height = 512
         self.transform_data = transforms.Compose([ 
