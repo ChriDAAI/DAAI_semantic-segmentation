@@ -22,7 +22,8 @@ class GTA5Dataset(Dataset):
         self.images_dir = os.path.join(self.path, 'images/')                                                     #To load the path of the images (/content/GTA5/images)
         self.labels_dir_colored = os.path.join(self.path, 'labels/')                                             #To load the path of the labels (/content/GTA5/labels)
         self.labels_dir_trainID = os.path.join(self.path, 'TrainID/')                                            #To load the path of the labels (/content/GTA5/TrainID)
-        self.images_files, self.label_colored_files = self.data_loader()                                         #To have '0000x.png'
+        self.images_files, self.label_colored = self.data_loader()                                               #To have 'images/0000x.png' and 'labels/0000x.png'
+        self.label_colored_files = os.path.basename(self.label_colored)
         self.transform_data = transforms.Compose([ 
             transforms.ToTensor(),                 # Converte l'immagine in un tensore
             transforms.Normalize(mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225))
@@ -33,17 +34,14 @@ class GTA5Dataset(Dataset):
         #self.data_augmentation= DataAugmentation()
         #self.enable_da = enable_da
     
-    def pil_loader(p, mode):
-        with open(p, 'rb') as f:
+    def pil_loader(self, p, mode):
+        with open(self.path+p, 'rb') as f:
             img = Image.open(f)
             return img.convert(mode).resize((self.width, self.height), Image.NEAREST)
 
     def __getitem__(self, idx):
-        img_name = os.path.join(self.images_dir, self.images_files[idx])                                          #Join (/content/GTA5/images) and '00001.png
-        label_name = os.path.join(self.path, self.label[idx])                                                    #This is because self.label has already the path TrainID/
-
-        image = self.pil_loader(img_name, 'RGB')
-        label = self.pil_loader(label_name, 'L')
+        image = self.pil_loader(self.images_files[idx], 'RGB')
+        label = self.pil_loader(self.label[idx], 'L')
         
         tensor_image = self.transform_data(image)                                                               #To have a tensor
         tensor_label = torch.from_numpy(np.array(label))                                                        #To have a tensor
