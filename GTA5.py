@@ -22,8 +22,7 @@ class GTA5Dataset(Dataset):
         self.images_dir = os.path.join(self.path, 'images/')                                                     #To load the path of the images (/content/GTA5/images)
         self.labels_dir_colored = os.path.join(self.path, 'labels/')                                             #To load the path of the labels (/content/GTA5/labels)
         self.labels_dir_trainID = os.path.join(self.path, 'TrainID/')                                            #To load the path of the labels (/content/GTA5/TrainID)
-        self.images_files, self.label_colored = self.data_loader()                                               #To have 'images/0000x.png' and 'labels/0000x.png'
-        self.label_colored_files = self.label_colored.split("/")[-1]
+        self.images_files, self.label_colored, self.label_colored_files = self.data_loader()                                               #To have 'images/0000x.png' and 'labels/0000x.png'
         self.transform_data = transforms.Compose([ 
             transforms.ToTensor(),                 # Converte l'immagine in un tensore
             transforms.Normalize(mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225))
@@ -53,6 +52,7 @@ class GTA5Dataset(Dataset):
     def data_loader(self):
         img= []
         lbl = []
+        lbl_name = []
         domain = [ "labels/","images/"]
         
         for d in domain:
@@ -64,8 +64,9 @@ class GTA5Dataset(Dataset):
                         img.append(relative_path)
                     else:
                         lbl.append(relative_path)
+                        lbl_name.append(os.path.basename(relative_path))
                     if len(img)==len(lbl):
                         break
-        return sorted(img), sorted(lbl)
+        return sorted(img), sorted(lbl), sorted(lbl_name)
            
         
