@@ -96,7 +96,7 @@ def from_label_to_TrainID(label_colored, label_info, path, height, width):
   if not os.path.exists("/content/GTA5/TrainID"):       #To be sure that TrainID directory is not present yet
         os.makedirs("/content/GTA5/TrainID")            #If is not present I create it
   print("Creating TRAIN_ID labels")
-  for l in sorted(label_colored): 
+  for l in sorted(label_colored):
     file_path=f"/content/GTA5/TrainID/{str(index).zfill(5)}.png"              #I create a list of images according to the index
     label_list.append(f"TrainID/{str(index).zfill(5)}.png")                   #I have the relative path of the trainID images
     if not os.path.exists(file_path):
@@ -104,11 +104,11 @@ def from_label_to_TrainID(label_colored, label_info, path, height, width):
       with open(path+l, 'rb') as f:
         img=Image.open(f)                                                      #I open the label image
         img=img.convert("RGB").resize((width, height), Image.NEAREST)          #I convert it into RGB and resize it
-        img=np.array(img)                                                      # I convert into np.array
-        train_id_img = one_hot_it_custom(img,label_info)                       # I obtain the semantic_map
-        train_id_img = Image.fromarray(train_id_img)                           # I convert back to image
-        train_id_img.convert('L').save(file_path)                              # I convert to grayscale image and i save it into trainID dir
-      index=index+1
+      img=np.array(img)                                                      # I convert into np.array
+      train_id_img = one_hot_it_custom(img,label_info)                       # I obtain the semantic_map
+      train_id_img = Image.fromarray(train_id_img)                           # I convert back to image
+      train_id_img.convert('L').save(file_path)                              # I convert to grayscale image and i save it into trainID dir
+    index=index+1
   print("Done")
   return label_list                                                            #I return the path of the trainId images
 
