@@ -15,14 +15,14 @@ from utils import from_label_to_TrainID
 
 class GTA5Dataset(Dataset):
     def __init__(self, mode):
-        super(GTA5, self).__init__()
+        super(GTA5Dataset, self).__init__()
         self.path = "/content/GTA5/"
         self.mode = mode
         self.label_info = get_label_info_custom('/content/DAAI_semantic-segmentation/GTA5.csv')                  #I create the list with the info coming from the .csv
         self.images_dir = os.path.join(self.path, 'images/')                                                     #To load the path of the images (/content/GTA5/images)
         self.labels_dir_colored = os.path.join(self.path, 'labels/')                                             #To load the path of the labels (/content/GTA5/labels)
         self.labels_dir_trainID = os.path.join(self.path, 'TrainID/')                                            #To load the path of the labels (/content/GTA5/TrainID)
-        self.data, self.label_colored = self.data_loader()
+        self.images_files, self.label_colored_files = self.data_loader()                                         #To have '0000x.png'
         self.transform_data = transforms.Compose([ 
             transforms.ToTensor(),                 # Converte l'immagine in un tensore
             transforms.Normalize(mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225))
@@ -33,19 +33,17 @@ class GTA5Dataset(Dataset):
         #self.data_augmentation= DataAugmentation()
         #self.enable_da = enable_da
 
-    def pil_loader(self, p, mode):
-        with open(self.path+p, 'rb') as f:
-            img = Image.open(f)
-            return img.convert(mode).resize((self.width, self.height), Image.NEAREST)
-
     def __getitem__(self, idx):
-        image = self.pil_loader(self.data[idx], 'RGB')
-        label = self.pil_loader(self.label[idx], 'L')
-        #if self.enable_da and np.random.rand()<=0.5:
-         #   image, label= self.data_augmentation(image, label)
-        tensor_image = self.transform_data(image)
-        tensor_label = torch.from_numpy(np.array(label))  
-        return tensor_image, tensor_label 
+        img_name = os.path.join(self.images_dir, self.image_files[idx])                                          #Join (/content/GTA5/images) and '00001.png
+        label_name = os.path.join(self.path, self.label[idx])                                                    #This is because self.label has already the path TrainID/
+        with open(img_name, 'rb') as f: 
+            image = Image.open(f).convert('RGB').resize((self.width, self.height), Image.NEAREST)                #I open the image, resize and convert in RGB
+        with open(label_name, 'rb') as b:
+            label = Image.open(label_name).convert('L').resize((self.width, self.height), Image.NEAREST)        #I open the TrainID, resize and convert in L
+        
+        tensor_image = self.transform_data(image)                                                               #To have a tensor
+        tensor_label = torch.from_numpy(np.array(label))                                                        #To have a tensor
+        return tensor_image, tensor_label
 
     def __len__(self):
         return len(self.data)
@@ -61,9 +59,9 @@ class GTA5Dataset(Dataset):
                     file_path = os.path.join(root, file)
                     relative_path = os.path.relpath(file_path, self.path)
                     if d=="images/":
-                        img.append(relative_path)
+                        img.append(os.path.basename(relative_path))
                     else:
-                        lbl.append(relative_path)
+                        lbl.append(os.path.basename(relative_path))
                     if len(data)==len(lbl):
                         break
         return sorted(img), sorted(lbl)
