@@ -13,7 +13,7 @@ import torch
 class GTA5Dataset(Dataset):
     def __init__(self, mode):
         super(GTA5Dataset, self).__init__()
-        self.path = "/content/GTA5/"                                                                              #Main GTA5 directory 
+        self.path = "/content/GTA5/"                                                                             #Main GTA5 directory 
         self.mode = mode                                                                                         #Train or validation
         self.label_info = get_label_info_custom('/content/DAAI_semantic-segmentation/GTA5.csv')                  #I create the list with the info coming from the .csv
         self.images_dir = os.path.join(self.path, 'images/')                                                     #To load the path of the images (/content/GTA5/images)
@@ -21,7 +21,7 @@ class GTA5Dataset(Dataset):
         self.labels_dir_trainID = os.path.join(self.path, 'TrainID/')                                            #To load the path of the labels (/content/GTA5/TrainID)
         self.image_files = sorted(os.listdir(self.images_dir))                                                   #To load the path containg the names of the images ('00001.png')
         self.label_colored_files = sorted(os.listdir(self.labels_dir_colored))                                   #To load the path containg the names of the labels ('00001.png')
-        self.imge = [os.path.join('images/', img) for img in self.image_files]
+        self.imge = [os.path.join('images/', img) for img in self.image_files]                                   #To create the path images/0000x.png
         self.width = 1024                                                                                        
         self.height = 512
         self.transform_data = transforms.Compose([ 
