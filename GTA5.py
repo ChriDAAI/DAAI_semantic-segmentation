@@ -34,7 +34,7 @@ class GTA5Dataset(Dataset):
         #self.enable_da = enable_da
     
     def pil_loader(self, p, mode):
-        with open(self.path+p, 'rb') as f:
+        with open(p, 'rb') as f:
             img = Image.open(f)
             return img.convert(mode).resize((self.width, self.height), Image.NEAREST)
 
@@ -42,8 +42,8 @@ class GTA5Dataset(Dataset):
         img_name = os.path.join(self.images_dir, self.images_files[idx])                                          #Join (/content/GTA5/images) and '00001.png
         label_name = os.path.join(self.path, self.label[idx])                                                    #This is because self.label has already the path TrainID/
 
-        image = self.pil_loader(img_name[idx], 'RGB')
-        label = self.pil_loader(label_name[idx], 'L')
+        image = self.pil_loader(img_name, 'RGB')
+        label = self.pil_loader(label_name, 'L')
         
         tensor_image = self.transform_data(image)                                                               #To have a tensor
         tensor_label = torch.from_numpy(np.array(label))                                                        #To have a tensor
