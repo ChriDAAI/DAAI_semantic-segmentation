@@ -11,9 +11,9 @@ import numpy as np
 import pandas as pd
 from myutils import from_RGB_to_LabelID, DataAugmentation
 
-class GTA5(Dataset):
+class GTA5Dataset(Dataset):
     def __init__(self, mode, enable_da=False):
-        super(GTA5, self).__init__()
+        super(GTA5Dataset, self).__init__()
         self.path = "/content/GTA5/"
         self.mode = mode
         self.data, self.label_colored = self.data_loader()
