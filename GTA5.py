@@ -32,8 +32,8 @@ class GTA5Dataset(Dataset):
         return len(self.image_files)                                            
 
     def __getitem__(self, idx):
-        img_name = os.path.join(self.path, self.image_files[idx])                                          
-        label_name = os.path.join(self.path, self.label[idx])                                                    
+        img_name = os.path.join(self.path +"/"+ self.image_files[idx])                                          
+        label_name = os.path.join(self.path +"/"+ self.label[idx])                                                    
         with open(img_name, 'rb') as f: 
             image = Image.open(f).convert('RGB').resize((self.width, self.height), Image.NEAREST)                #I open the image, resize and convert in RGB
         with open(label_name, 'rb') as b:
