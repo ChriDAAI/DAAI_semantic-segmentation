@@ -35,10 +35,10 @@ class GTA5Dataset(Dataset):
         with open(img_name, 'rb') as f: 
             image = Image.open(f).convert('RGB').resize((self.width, self.height), Image.NEAREST)                #I open the image, resize and convert in RGB
         with open(label_name, 'rb') as b:
-            label = Image.open(label_name).convert('L').resize((self.width, self.height), Image.NEAREST)        #I open the TrainID, resize and convert in L
+            labels = Image.open(label_name).convert('L').resize((self.width, self.height), Image.NEAREST)        #I open the TrainID, resize and convert in L
         
         tensor_image = self.transform_data(image)                                                               #To have a tensor
-        tensor_label = torch.from_numpy(np.array(label))                                                        #To have a tensor
+        tensor_label = torch.from_numpy(np.array(labels))                                                        #To have a tensor
         return tensor_image, tensor_label
             
     def loader(self):
