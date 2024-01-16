@@ -40,5 +40,5 @@ class GTA5Dataset(Dataset):
         
         tensor_image = self.transform_data(image)                                                               #To have a tensor
         tensor_label = torch.from_numpy(np.array(label))                                                        #To have a tensor
-        return tensor_image, tensor_label 
+        return tensor_image, tensor_label.long()
             
