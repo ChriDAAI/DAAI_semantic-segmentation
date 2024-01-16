@@ -23,7 +23,7 @@ class GTA5Dataset(Dataset):
         self.labels_dir_colored = os.path.join(self.path, 'labels/')                                             #To load the path of the labels (/content/GTA5/labels)
         self.labels_dir_trainID = os.path.join(self.path, 'TrainID/')                                            #To load the path of the labels (/content/GTA5/TrainID)
         self.images_files, self.label_colored = self.data_loader()                                               #To have 'images/0000x.png' and 'labels/0000x.png'
-        self.label_colored_files = os.path.basename(self.label_colored)
+        self.label_colored_files = self.label_colored.split("/")[-1]
         self.transform_data = transforms.Compose([ 
             transforms.ToTensor(),                 # Converte l'immagine in un tensore
             transforms.Normalize(mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225))
