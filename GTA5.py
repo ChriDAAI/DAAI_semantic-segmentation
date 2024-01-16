@@ -32,14 +32,18 @@ class GTA5Dataset(Dataset):
         self.label=from_label_to_TrainID(self.label_colored_files,self.label_info, self.labels_dir_colored, self.height, self.width)
         #self.data_augmentation= DataAugmentation()
         #self.enable_da = enable_da
+    
+    def pil_loader(self, p, mode):
+        with open(self.path+p, 'rb') as f:
+            img = Image.open(f)
+            return img.convert(mode).resize((self.width, self.height), Image.NEAREST)
 
     def __getitem__(self, idx):
         img_name = os.path.join(self.images_dir, self.images_files[idx])                                          #Join (/content/GTA5/images) and '00001.png
         label_name = os.path.join(self.path, self.label[idx])                                                    #This is because self.label has already the path TrainID/
-        with open(img_name, 'rb') as f: 
-            image = Image.open(f).convert('RGB').resize((self.width, self.height), Image.NEAREST)                #I open the image, resize and convert in RGB
-        with open(label_name, 'rb') as b:
-            label = Image.open(label_name).convert('L').resize((self.width, self.height), Image.NEAREST)        #I open the TrainID, resize and convert in L
+
+        image = self.pil_loader(img_name[idx], 'RGB')
+        label = self.pil_loader(label_name[idx], 'L')
         
         tensor_image = self.transform_data(image)                                                               #To have a tensor
         tensor_label = torch.from_numpy(np.array(label))                                                        #To have a tensor
