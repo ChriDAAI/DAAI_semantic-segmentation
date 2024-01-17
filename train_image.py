@@ -58,7 +58,9 @@ def val(args, model, dataloader):
             hist += fast_hist(label.flatten(), predict.flatten(), args.num_classes)
 
             # there is no need to transform the one-hot array to visual RGB array
-            # predict = colour_code_segmentation(np.array(predict), label_info)
+            img = colour_code_segmentation(np.array(predict), label_colors)
+            img = Image.fromarray(img, 'RGB')
+            img.save(os.path.join(args.predicted_labels_folder,name[0]+".png"))
             # label = colour_code_segmentation(np.array(label), label_info)
             precision_record.append(precision)
 
@@ -162,7 +164,7 @@ def parse_args():
     parse.add_argument('--pretrain_path',
                       dest='pretrain_path',
                       type=str,
-                      default='',
+                      default='/content/drive/MyDrive/saved_models/GTA5/best.pth',
     )
     parse.add_argument('--use_conv_last',
                        dest='use_conv_last',
@@ -238,6 +240,10 @@ def parse_args():
     parse.add_argument('--dataset_test',
                       type=str,
                       default='Cityscapes')
+    parse.add_argument('--predicted_labels_folder',
+                      type=str,
+                      default='/content/drive/MyDrive/figures/GTA5')
+
 
 
     return parse.parse_args()
