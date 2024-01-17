@@ -25,6 +25,7 @@ def val(args, model, dataloader):
         labels_info = json.load(fr)
         # Initialize an empty list to store the names
         classes = []
+        label_colors = []
 
         # Iterate over the items in the JSON file
         for item in labels_info:
@@ -32,6 +33,7 @@ def val(args, model, dataloader):
             if not item['ignoreInEval']:
                 # If so, append the 'name' to the list
                 classes.append(item['name'])
+                label_colors.append(item['color'])
     
     print('start val!')
     with torch.no_grad():
