@@ -1,23 +1,24 @@
-precision per pixel for test: 0.869
-mIoU for validation: 0.478
-mIoU per class road: 0.989
-mIoU per class sidewalk: 0.000
-mIoU per class building: 0.980
-mIoU per class wall: 0.972
-mIoU per class fence: 0.940
-mIoU per class pole: 0.880
-mIoU per class traffic light: 0.000
-mIoU per class traffic sign: 0.000
-mIoU per class vegetation: 0.755
-mIoU per class terrain: 0.687
-mIoU per class sky: 0.905
-mIoU per class person: 0.972
-mIoU per class rider: 0.000
-mIoU per class car: 0.000
-mIoU per class truck: 0.995
-mIoU per class bus: 0.000
-mIoU per class train: 0.000
-mIoU per class motorcycle: 0.000
-mIoU per class bicycle: 0.000
+start val!
+precision per pixel for test: 0.826
+mIoU for validation: 0.639
+mIoU per class road: 0.946
+mIoU per class sidewalk: 0.784
+mIoU per class building: 0.812
+mIoU per class wall: 0.601
+mIoU per class fence: 0.379
+mIoU per class pole: 0.464
+mIoU per class traffic light: 0.455
+mIoU per class traffic sign: 0.463
+mIoU per class vegetation: 0.785
+mIoU per class terrain: 0.741
+mIoU per class sky: 0.948
+mIoU per class person: 0.372
+mIoU per class rider: 0.378
+mIoU per class car: 0.845
+mIoU per class truck: 0.746
+mIoU per class bus: 0.800
+mIoU per class train: 0.840
+mIoU per class motorcycle: 0.420
+mIoU per class bicycle: 0.361
 
 train time 2h 20 minutes
