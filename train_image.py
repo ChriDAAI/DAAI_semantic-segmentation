@@ -303,9 +303,9 @@ def main():
     #if 'best' in args.pth_file:
         #print ("The best epoch is {}". format(checkpoint['epoch']))
     
-    model.load_state_dict(checkpoint['model_state_dict'])
-    if torch.cuda.is_available() and args.use_gpu:
-        model = torch.nn.DataParallel(model).cuda()
+   # model.load_state_dict(checkpoint['model_state_dict'])
+    #if torch.cuda.is_available() and args.use_gpu:
+     #   model = torch.nn.DataParallel(model).cuda()
     print('Done!')
 
 
