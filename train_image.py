@@ -296,6 +296,18 @@ def main():
 
     ## model
     model = BiSeNet(backbone=args.backbone, n_classes=n_classes, pretrain_model=args.pretrain_path, use_conv_last=args.use_conv_last)
+    
+    print('load model from %s ...' % (os.path.join(args.save_model_path, args.pth_file)))
+    checkpoint = torch.load((os.path.join(args.save_model_path, args.pth_file)))
+    # load pretrained model if exists
+    #if 'best' in args.pth_file:
+        #print ("The best epoch is {}". format(checkpoint['epoch']))
+    
+    model.load_state_dict(checkpoint['model_state_dict'])
+    if torch.cuda.is_available() and args.use_gpu:
+        model = torch.nn.DataParallel(model).cuda()
+    print('Done!')
+
 
     if torch.cuda.is_available() and args.use_gpu:
         model = torch.nn.DataParallel(model).cuda()
