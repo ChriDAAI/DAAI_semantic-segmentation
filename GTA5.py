@@ -9,7 +9,7 @@ from utils import get_label_info_custom
 from utils import from_label_to_TrainID
 from torchvision import transforms
 import torch
-from data_aug import DataAugmentation
+from dataaugmentation import DataAugmentation
 
 class GTA5Dataset(Dataset):
     def __init__(self, mode, data_aug = False):
