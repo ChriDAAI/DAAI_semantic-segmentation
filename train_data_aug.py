@@ -262,7 +262,7 @@ def main():
         train_dataset = CityScapes(path_cityscapes, mode)
     elif args.dataset_train=='GTA5':
         print("Training on GTA5 Dataset")
-        dataset=GTA5Dataset(mode)
+        dataset=GTA5Dataset(mode, args.data_aug)
         #dataset=GTA5(mode)
         train_dataset,_=split_dataset(dataset)
 
