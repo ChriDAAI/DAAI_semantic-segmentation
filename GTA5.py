@@ -45,7 +45,7 @@ class GTA5Dataset(Dataset):
     def __getitem__(self, idx):
         image = self.pil_loader(self.imge[idx], 'RGB')
         label = self.pil_loader(self.label[idx], 'L')
-        if self.data_aug and np.randomm.rand()<=0.5:
+        if self.data_aug and np.random.rand()<=0.5:
             image, label = self.data_augmentation(image, label)
         
         tensor_image = self.transform_data(image)                                                               #To have a tensor
