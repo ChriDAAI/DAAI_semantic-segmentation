@@ -9,9 +9,10 @@ from utils import get_label_info_custom
 from utils import from_label_to_TrainID
 from torchvision import transforms
 import torch
+from data_aug import DataAugmentation
 
 class GTA5Dataset(Dataset):
-    def __init__(self, mode):
+    def __init__(self, mode, data_aug = False):
         super(GTA5Dataset, self).__init__()
         self.path = "/content/GTA5/"                                                                             #Main GTA5 directory 
         self.mode = mode                                                                                         #Train or validation
@@ -29,7 +30,9 @@ class GTA5Dataset(Dataset):
             transforms.Normalize(mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225))
         ])
         self.label = sorted(from_label_to_TrainID(self.label_colored_files,self.label_info, self.labels_dir_colored, self.height, self.width))           #Convert label to TrainID format
-
+        self.data_augmentation = DataAugmentation()
+        self.data_aug = data_aug
+        
     def pil_loader(self, p, mode):
         with open(self.path+p, 'rb') as f:
             img = Image.open(f)
@@ -42,6 +45,8 @@ class GTA5Dataset(Dataset):
     def __getitem__(self, idx):
         image = self.pil_loader(self.imge[idx], 'RGB')
         label = self.pil_loader(self.label[idx], 'L')
+        if self.data_aug and np.randomm.rand()<=0.5:
+            image, label = self.data_augmentation(image, label)
         
         tensor_image = self.transform_data(image)                                                               #To have a tensor
         tensor_label = torch.from_numpy(np.array(label))                                                        #To have a tensor
