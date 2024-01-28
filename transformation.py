@@ -33,14 +33,19 @@ class RandomCrop(object):
                     )
 
 
-class HorizontalFlip(DataAugmentation):
-    def __init__(self):
-        super(HorizontalFlip, self).__init__()
+class HorizontalFlip(object):
+    def __init__(self, p=0.5, *args, **kwargs):
+        self.p = p
 
-    def __call__(self, img, label):
-        flip_image =img.transpose(Image.FLIP_LEFT_RIGHT)
-        flip_LABEL =LABEL.transpose(Image.FLIP_LEFT_RIGHT)
-        return flip_image, flip_label
+    def __call__(self, im_lb):
+        if random.random() > self.p:
+            return im_lb
+        else:
+            im = im_lb['im']
+            lb = im_lb['lb']
+            return dict(im = im.transpose(Image.FLIP_LEFT_RIGHT),
+                        lb = lb.transpose(Image.FLIP_LEFT_RIGHT),
+                    )
 
 
 class RandomScale(object):
