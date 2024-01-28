@@ -1,0 +1,48 @@
+LR = 0.001 batch size = 8
+
+precision per pixel for test: 0.518
+mIoU for validation: 0.135
+mIoU per class road: 0.547
+mIoU per class sidewalk: 0.007
+mIoU per class building: 0.546
+mIoU per class wall: 0.019
+mIoU per class fence: 0.000
+mIoU per class pole: 0.084
+mIoU per class traffic light: 0.011
+mIoU per class traffic sign: 0.010
+mIoU per class vegetation: 0.726
+mIoU per class terrain: 0.043
+mIoU per class sky: 0.434
+mIoU per class person: 0.041
+mIoU per class rider: 0.012
+mIoU per class car: 0.041
+mIoU per class truck: 0.022
+mIoU per class bus: 0.009
+mIoU per class train: 0.000
+mIoU per class motorcycle: 0.004
+mIoU per class bicycle: 0.000
+
+####################################################
+
+WITH DA LR = 0.001 batch size = 8
+precision per pixel for test: 0.518
+mIoU for validation: 0.127
+mIoU per class road: 0.568
+mIoU per class sidewalk: 0.006
+mIoU per class building: 0.383
+mIoU per class wall: 0.036
+mIoU per class fence: 0.020
+mIoU per class pole: 0.119
+mIoU per class traffic light: 0.020
+mIoU per class traffic sign: 0.011
+mIoU per class vegetation: 0.599
+mIoU per class terrain: 0.032
+mIoU per class sky: 0.293
+mIoU per class person: 0.206
+mIoU per class rider: 0.000
+mIoU per class car: 0.085
+mIoU per class truck: 0.019
+mIoU per class bus: 0.014
+mIoU per class train: 0.000
+mIoU per class motorcycle: 0.000
+mIoU per class bicycle: 0.000
