@@ -24,7 +24,8 @@ mIoU per class bicycle: 0.000
 
 ####################################################
 
-WITH DA LR = 0.001 batch size = 8
+WITH DA LR = 0.001 batch size = 8 Training time = 3.30h
+
 precision per pixel for test: 0.518
 mIoU for validation: 0.127
 mIoU per class road: 0.568
