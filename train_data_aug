@@ -238,7 +238,7 @@ def parse_args():
     parse.add_argument('--dataset_test',
                       type=str,
                       default='Cityscapes')
-    parse.add_argument('--enable_da',
+    parse.add_argument('--data_aug',
                       type=bool,
                       default=True)
 
