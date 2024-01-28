@@ -15,6 +15,7 @@ from tqdm import tqdm
 import matplotlib.pyplot as plt
 import json
 from GTA5 import GTA5Dataset
+from data_aug import DataAugmentation
 #from gta5 import GTA5
 
 logger = logging.getLogger()
