@@ -12,7 +12,7 @@ import torch
 from dataaugmentation import DataAugmentation
 
 class GTA5Dataset(Dataset):
-    def __init__(self, mode, data_aug = False):
+    def __init__(self, mode, data_aug = True):
         super(GTA5Dataset, self).__init__()
         self.path = "/content/GTA5/"                                                                             #Main GTA5 directory 
         self.mode = mode                                                                                         #Train or validation
