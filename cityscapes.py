@@ -18,11 +18,11 @@ class CityScapes(Dataset):
     def __init__(self, path, mode='train', cropsize=(1024, 512), 
     randomscale=(0.125, 0.25, 0.375, 0.5, 0.675, 0.75, 0.875, 1.0, 1.25, 1.5), *args, **kwargs):
         super(CityScapes, self).__init__(*args, **kwargs)
-        self.path =  "/content/Cityscapes/Cityspaces"    #To find the dataset
-        assert mode in ('train', 'val')
+        self.path =  "/content/Cityscapes/Cityspaces"                    #Path to Dataset
+        assert mode in ('train', 'val')                                  #Dataset can be used for training and for validatio
         self.mode = mode
         print('self.mode', self.mode)
-        self.ignore_lb = 255
+        self.ignore_lb = 255                                             #To ignore void Class
 
         self.transformed_data = T.Compose([
           T.ToTensor(),
@@ -49,15 +49,15 @@ class CityScapes(Dataset):
         
 
         ## parse img directory
-        self.imgs = {}
-        imgnames = []
-        impth = osp.join(path, 'images', mode)
-        folders = os.listdir(impth)
-        for fd in folders:
-            fdpth = osp.join(impth, fd)
-            im_names = os.listdir(fdpth)
-            names = [el.replace('_leftImg8bit.png', '') for el in im_names]
-            impths = [osp.join(fdpth, el) for el in im_names]
+        self.imgs = {}                                #To store img path
+        imgnames = []                                 #To store image names
+        impth = osp.join(path, 'images', mode)        #To reconstruct the path of the image considering the mode
+        folders = os.listdir(impth)                   #To list all the folders in the reconstructed path
+        for fd in folders:                            #For each folder
+            fdpth = osp.join(impth, fd)               #to create the path
+            im_names = os.listdir(fdpth)              #to list all the images inside
+            names = [el.replace('_leftImg8bit.png', '') for el in im_names]    #To store inside names the filename
+            impths = [osp.join(fdpth, el) for el in im_names]                  #To construct the full path for each image file till the current subdirectory
             imgnames.extend(names)
             self.imgs.update(dict(zip(names, impths)))
 
@@ -75,33 +75,33 @@ class CityScapes(Dataset):
             gtnames.extend(names)
             self.labels.update(dict(zip(names, lbpths)))
 
-        self.imnames = imgnames
-        self.len = len(self.imnames)
+        self.imnames = imgnames                        #To assign the list of modified image filenames to self.imnames
+        self.len = len(self.imnames)                   #To evaluate the lenght of the list 
         print('self.len', self.mode, self.len)
-        assert set(imgnames) == set(gtnames)
-        assert set(self.imnames) == set(self.imgs.keys())
+        assert set(imgnames) == set(gtnames)           #To ensure that the set in image is equal to the set of labels
+        assert set(self.imnames) == set(self.imgs.keys())    #To ensure that all the file names have a corresponing path 
         assert set(self.imnames) == set(self.labels.keys())
 
 
 
     def __getitem__(self, idx):
-        fn  = self.imnames[idx]
-        impth = self.imgs[fn]
-        lbpth = self.labels[fn]
-        img = Image.open(impth).convert('RGB')
-        label = Image.open(lbpth)
-        if self.mode == 'train':
-            im_lb = dict(im = img, lb = label)
-            im_lb = self.trans_train(im_lb)
-            img, label = im_lb['im'], im_lb['lb']
+        fn  = self.imnames[idx]                            #To retrieve the filename of the image at index idx
+        impth = self.imgs[fn]                              #To reconstruct the full path of the image
+        lbpth = self.labels[fn]                            #To reconstruct the full path of the label
+        img = Image.open(impth).convert('RGB')             #To open the image as RGB
+        label = Image.open(lbpth)                          #To open the label 
+        if self.mode == 'train':                           #If Training 
+            im_lb = dict(im = img, lb = label)             # To create a dictionary with the image and the label 
+            im_lb = self.trans_train(im_lb)                #To apply transformation
+            img, label = im_lb['im'], im_lb['lb']          #To update the image and the label with the transformed image and label 
         img = self.transformed_data(img)
-        label = np.array(label).astype(np.int64)[np.newaxis, :]
+        label = np.array(label).astype(np.int64)[np.newaxis, :]        #To convert label in NumPy array
         #label = self.convert_labels(label)
         return img, label
 
 
     def __len__(self):
-        return self.len
+        return self.len                                     #To return the lenght 
 
 
     #def convert_labels(self, label):
